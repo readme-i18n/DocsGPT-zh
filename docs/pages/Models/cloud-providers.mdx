@@ -1,29 +1,30 @@
 ---
-title: Connecting DocsGPT to Cloud LLM Providers
-description: Connect DocsGPT to various Cloud Large Language Model (LLM) providers to power your document Q&A.
+
+title: 将 DocsGPT 连接到云端 LLM 提供商
+description: 将 DocsGPT 连接到各类云端大语言模型(LLM)提供商，为您的文档问答提供支持。
 ---
 
-# Connecting DocsGPT to Cloud LLM Providers
+# 将 DocsGPT 连接到云端 LLM 提供商
 
-DocsGPT is designed to seamlessly integrate with a variety of Cloud Large Language Model (LLM) providers, giving you access to state-of-the-art AI models for document question answering.
+DocsGPT 设计用于无缝集成各类云端大语言模型(LLM)提供商，让您能够访问最先进的文档问答 AI 模型。
 
-## Configuration via `.env` file
+## 通过 `.env` 文件配置
 
-The primary method for configuring your LLM provider in DocsGPT is through the `.env` file. For a comprehensive understanding of all available settings, please refer to the detailed [DocsGPT Settings Guide](/Deploying/DocsGPT-Settings).
+在 DocsGPT 中配置 LLM 提供商的主要方式是通过 `.env` 文件。要全面了解所有可用设置，请参阅详细的 [DocsGPT 设置指南](/Deploying/DocsGPT-Settings)。
 
-To connect to a cloud LLM provider, you will typically need to configure the following basic settings in your `.env` file:
+连接到云端 LLM 提供商时，通常需要在 `.env` 文件中配置以下基本设置：
 
-*   **`LLM_PROVIDER`**:  This setting is essential and identifies the specific cloud provider you wish to use (e.g., `openai`, `google`, `anthropic`).
-*   **`LLM_NAME`**:  Specifies the exact model you want to utilize from your chosen provider (e.g., `gpt-4o`, `gemini-2.0-flash`, `claude-3-5-sonnet-latest`).  Refer to your provider's documentation for a list of available models.
-*   **`API_KEY`**:  Almost all cloud LLM providers require an API key for authentication. Obtain your API key from your chosen provider's platform and securely store it in your `.env` file.
+*   **`LLM_PROVIDER`**: 此设置至关重要，用于标识您希望使用的特定云端提供商（例如 `openai`、`google`、`anthropic`）。
+*   **`LLM_NAME`**: 指定您希望从所选提供商使用的具体模型（例如 `gpt-4o`、`gemini-2.0-flash`、`claude-3-5-sonnet-latest`）。请参阅提供商文档以获取可用模型列表。
+*   **`API_KEY`**: 几乎所有云端 LLM 提供商都需要 API 密钥进行身份验证。从您选择的提供商平台获取 API 密钥，并安全地存储在 `.env` 文件中。
 
-## Explicitly Supported Cloud Providers
+## 明确支持的云端提供商
 
-DocsGPT offers direct, streamlined support for the following cloud LLM providers, making configuration straightforward.  The table below outlines the `LLM_PROVIDER` and example `LLM_NAME` values to use for each provider in your `.env` file.
+DocsGPT 为以下云 LLM 提供商提供直接简化的支持，使配置过程更加便捷。下表列出了在 `.env` 文件中需要为每个提供商配置的 `LLM_PROVIDER` 和示例 `LLM_NAME` 值。
 
-| Provider                     | `LLM_PROVIDER` | Example `LLM_NAME`          |
+| 提供商                     | `LLM_PROVIDER` | 示例 `LLM_NAME`          |
 | :--------------------------- | :------------- | :-------------------------- |
-| DocsGPT Public API           | `docsgpt`      | `None`                      |
+| DocsGPT 公共 API           | `docsgpt`      | `None`                      |
 | OpenAI                       | `openai`       | `gpt-4o`                    |
 | Google (Vertex AI, Gemini)   | `google`       | `gemini-2.0-flash`          |
 | Anthropic (Claude)           | `anthropic`    | `claude-3-5-sonnet-latest`  |
@@ -31,15 +32,15 @@ DocsGPT offers direct, streamlined support for the following cloud LLM providers
 | HuggingFace Inference API    | `huggingface`  | `meta-llama/Llama-3.1-8B-Instruct` |
 | Azure OpenAI                 | `azure_openai` | `gpt-4o`                    |
 
-## Connecting to OpenAI-Compatible Cloud APIs
+## 连接 OpenAI 兼容的云 API
 
-DocsGPT's flexible architecture allows you to connect to any cloud provider that offers an API compatible with the OpenAI API standard. This opens up a vast ecosystem of LLM services.
+DocsGPT 的灵活架构允许您连接任何提供与 OpenAI API 标准兼容的云服务提供商，这为您打开了广阔的 LLM 服务生态系统。
 
-To connect to an OpenAI-compatible cloud provider, you will still use `LLM_PROVIDER=openai` in your `.env` file.  However, you will also need to specify the API endpoint of your chosen provider using the `OPENAI_BASE_URL` setting.  You will also likely need to provide an `API_KEY` and `LLM_NAME` as required by that provider.
+要连接到兼容 OpenAI 的云服务提供商，您仍需在 `.env` 文件中设置 `LLM_PROVIDER=openai`。但还需要通过 `OPENAI_BASE_URL` 参数指定所选服务商的 API 端点。通常还需按照服务商要求提供 `API_KEY` 和 `LLM_NAME`。
 
-**Example for DeepSeek (OpenAI-Compatible API):**
+**DeepSeek 配置示例(兼容 OpenAI API):**
 
-To connect to DeepSeek, which offers an OpenAI-compatible API, your `.env` file could be configured as follows:
+连接提供 OpenAI 兼容 API 的 DeepSeek 时，`.env` 文件可配置如下：
 
 ```
 LLM_PROVIDER=openai
@@ -48,8 +49,8 @@ LLM_NAME=deepseek-chat # Or your desired DeepSeek model name
 OPENAI_BASE_URL=https://api.deepseek.com/v1 # DeepSeek's OpenAI API URL
 ```
 
-Remember to consult the documentation of your chosen OpenAI-compatible cloud provider for their specific API endpoint, required model names, and authentication methods.
+请务必查阅所选兼容 OpenAI 的云服务商文档，获取其特定的 API 端点、所需模型名称及认证方式。
 
-## Adding Support for Other Cloud Providers
+## 添加其他云服务商支持
 
-If you wish to connect to a cloud provider that is not explicitly listed above or doesn't offer OpenAI API compatibility, you can extend DocsGPT to support it. Within the DocsGPT repository, navigate to the `application/llm` directory. Here, you will find Python files defining the existing LLM integrations.  You can use these files as examples to create a new module for your desired cloud provider.  After creating your new LLM module, you will need to register it within the `llm_creator.py` file. This process involves some coding, but it allows for virtually unlimited extensibility to connect to any cloud-based LLM service with an accessible API.
+如需连接上文未列出或不兼容 OpenAI API 的云服务商，可扩展 DocsGPT 实现支持。在 DocsGPT 代码库中，进入 `application/llm` 目录，该目录包含现有 LLM 集成的 Python 实现文件。可参考这些文件为您目标服务商创建新模块，完成后需在 `llm_creator.py` 中注册新模块。此过程涉及编码工作，但能实现无限扩展性，支持连接任何提供开放 API 的云端 LLM 服务。

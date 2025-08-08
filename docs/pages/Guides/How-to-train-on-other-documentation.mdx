@@ -1,48 +1,40 @@
 ---
-title: How to Train on Other Documentation
-description: A step-by-step guide on how to effectively train DocsGPT on additional documentation sources.
+
+title: 如何训练其他文档
+description: 关于如何有效在额外文档源上训练DocsGPT的逐步指南。
 ---
 
 import { Callout } from 'nextra/components'
 import Image from 'next/image'
 import { Steps } from 'nextra/components'
 
-## How to train on other documentation
+## 如何训练其他文档
 
-Training on other documentation sources can greatly enhance the versatility and depth of DocsGPT's knowledge. By incorporating diverse materials, you can broaden the AI's understanding and improve its ability to generate insightful responses across a range of topics. Here's a step-by-step guide on how to effectively train DocsGPT on additional documentation sources:
+在其他文档源上进行训练可以显著增强DocsGPT的知识广度和深度。通过整合多样化材料，您能扩展AI的理解范围并提升其跨领域生成深刻回答的能力。以下是关于如何有效在额外文档源上训练DocsGPT的逐步指南：
 
-**Get your document ready**:
+**准备文档**：
 
-Make sure you have the document on which you want to train on  ready with you on the device which you are using .You can also use links to the documentation to train on.
+确保您已在使用设备上准备好需要训练的文档。您也可以使用文档链接进行训练。
 
 <Callout type="warning" emoji="⚠️">
- Note: The document should be either of the given file formats .pdf, .txt, .rst, .docx, .md, .zip and  limited to 25mb.You can also train using the link of the documentation.
-
+注意：文档格式必须为以下类型之一.pdf、.txt、.rst、.docx、.md、.zip且大小不超过25MB。您也可以使用文档链接进行训练。
 </Callout>
 
-### Video Demo
+### 视频演示
 
 <Image src="/docs.gif" alt="prompts" width={800} height={500} />
 
-
-
 <Steps>
-### Step1
-Navigate to the sidebar where you will find `Source Docs` option,here you will find 3 options built in which are default,Web Search and None.
+### 第一步
+导航至侧边栏，找到 `Source Docs` 选项，这里内置了三个默认选项：default、Web Search 和 None。
 
+### 第二步
+点击 `Source Docs` 选项旁边的 `上传图标`，浏览并选择需要训练的文档进行上传，或选择 `remote` 选项来输入文档链接。
 
-### Step 2
-Click on the `Upload icon` just beside the source docs options,now browse and upload the document which you want to train on or select the `remote` option if you have to insert the link of the documentation.
+### 第三步
+上传完成后，文件名称会显示在 "Uploaded Files" 下方。点击 `Train` 按钮开始训练，此过程可能需要一些时间。您可以查看 `Training progress` 进度，训练完成后点击 `finish` 按钮即可完成文档上传。
 
-
-### Step 3
-Now you will be able to see the name of the file uploaded under the Uploaded Files ,now click on `Train`,once you click on train it might take some time to train on the document. You will be able to see the `Training progress` and once the training is completed you can click the `finish` button and there you go your document is uploaded.
-
-
-### Step 4
-Go to `New chat`  and from the side bar select the document  you uploaded  under the `Source Docs` and go ahead with your chat, now you can ask questions regarding the document you uploaded and you will get the effective answer based on it.
+### 第四步
+进入 `New chat` 界面，从侧边栏的 `Source Docs` 下选择已上传的文档开始对话。现在您可以针对上传的文档提问，并获得基于文档内容的精准回答。
 
 </Steps>
-
-
-

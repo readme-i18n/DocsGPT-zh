@@ -1,41 +1,42 @@
 ---
-title: Triggering Agents with Webhooks
-description: Learn how to automate and integrate DocsGPT Agents using webhooks for asynchronous task execution.
+
+title: 通过 Webhook 触发代理
+description: 了解如何使用 Webhook 实现 DocsGPT 代理的自动化集成，用于异步任务执行。
 ---
 
 import { Callout, Tabs } from 'nextra/components';
 
-# Triggering Agents with Webhooks
+# 通过 Webhook 触发代理
 
-Agent Webhooks provide a powerful mechanism to trigger an agent's execution from external systems. Unlike the direct API which provides an immediate response, webhooks are designed for **asynchronous** operations. When you call a webhook, DocsGPT enqueues the agent's task for background processing and immediately returns a `task_id`. You then use this ID to poll for the result.
+代理 Webhook 提供了一种强大的机制，可以从外部系统触发代理的执行。与提供即时响应的直接 API 不同，Webhook 专为**异步**操作设计。当您调用 Webhook 时，DocsGPT 会将代理任务加入后台处理队列，并立即返回一个 `task_id`。随后您可以使用此 ID 轮询任务结果。
 
-This workflow is ideal for integrating with services that expect a quick initial response (e.g., form submissions) or for triggering long-running tasks without tying up a client connection.
+这种工作流程非常适合需要快速初始响应（例如表单提交）的服务集成，也适用于触发长时间运行的任务而无需保持客户端连接。
 
-Each agent has its own unique webhook URL, which can be generated from the agent's edit page in the DocsGPT UI. This URL includes a secure token for authentication.
+每个代理都有其唯一的 Webhook URL，该 URL 可通过 DocsGPT 用户界面的代理编辑页面生成。此 URL 包含用于身份验证的安全令牌。
 
-### API Endpoints
+### API 端点
 
 - **Webhook URL:** `http://localhost:7091/api/webhooks/agents/{AGENT_WEBHOOK_TOKEN}`
-- **Task Status URL:** `http://localhost:7091/api/task_status`
+- **任务状态 URL:** `http://localhost:7091/api/task_status`
 
 <Callout type="info">
-For DocsGPT Cloud, use `https://gptcloud.arc53.com/` as the base URL.
+DocsGPT 云服务请使用 `https://gptcloud.arc53.com/` 作为基础 URL。
 </Callout>
 
-For more technical details, you can explore the API swagger documentation available for the cloud version or your local instance.
+如需更多技术细节，您可以查阅云版本或本地实例提供的 API swagger 文档。
 
 ---
 
-## The Webhook Workflow
+## Webhook 工作流程
 
-The process involves two main steps: triggering the task and polling for the result.
+该流程包含两个主要步骤：触发任务和轮询结果。
 
-### Step 1: Trigger the Webhook
+### 步骤1：触发Webhook
 
-Send an HTTP `POST` request to the agent's unique webhook URL with the required payload. The structure of this payload should match what the agent's prompt and tools are designed to handle.
+向代理的唯一webhook URL发送HTTP `POST`请求并携带所需负载。该负载结构应与代理提示词及工具的设计处理要求相匹配。
 
--   **Method:** `POST`
--   **Response:** A JSON object with a `task_id`. `{"task_id": "a1b2c3d4-e5f6-..."}`
+-   **方法:** `POST`
+-   **响应:** 包含`task_id`的JSON对象。示例：`{"task_id": "a1b2c3d4-e5f6-..."}`
 
 <Tabs items={['cURL', 'Python', 'JavaScript']}>
   <Tabs.Tab>
@@ -88,12 +89,12 @@ Send an HTTP `POST` request to the agent's unique webhook URL with the required 
   </Tabs.Tab>
 </Tabs>
 
-### Step 2: Poll for the Result
+### 步骤2：轮询结果
 
-Once you have the `task_id`, periodically send a `GET` request to the `/api/task_status` endpoint until the task `status` is `SUCCESS` or `FAILURE`.
+获取`task_id`后，定期向`/api/task_status`端点发送`GET`请求，直到任务`status`变为`SUCCESS`或`FAILURE`。
 
-- **`status`**: The current state of the task (`PENDING`, `STARTED`, `SUCCESS`, `FAILURE`).
-- **`result`**: The final output from the agent, available when the status is `SUCCESS` or `FAILURE`.
+- **`status`**: 任务当前状态（`PENDING`、`STARTED`、`SUCCESS`、`FAILURE`）。
+- **`result`**: 代理的最终输出，当状态为`SUCCESS`或`FAILURE`时可用。
 
 <Tabs items={['cURL', 'Python', 'JavaScript']}>
   <Tabs.Tab>

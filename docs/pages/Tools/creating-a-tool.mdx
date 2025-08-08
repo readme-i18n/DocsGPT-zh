@@ -1,71 +1,72 @@
 ---
-title: 🛠️ Creating a Custom Tool
-description: Learn how to create custom Python tools to extend DocsGPT's functionality and integrate with various services or perform specific actions.
+
+title: 🛠️ 创建自定义工具
+description: 学习如何创建自定义 Python 工具来扩展 DocsGPT 的功能，并与各种服务集成或执行特定操作。
 ---
 
 import { Callout } from 'nextra/components';
 import { Steps } from 'nextra/components';
 
-# 🛠️ Creating a Custom Python Tool
+# 🛠️ 创建自定义 Python 工具
 
-This guide provides developers with a comprehensive, step-by-step approach to creating their own custom tools for DocsGPT. By developing custom tools, you can significantly extend DocsGPT's capabilities, enabling it to interact with new data sources, services, and perform specialized actions tailored to your unique needs.
+本指南为开发者提供了创建自定义 DocsGPT 工具的全面分步方法。通过开发自定义工具，您可以显著扩展 DocsGPT 的能力，使其能够与新的数据源、服务交互，并执行针对您独特需求定制的专业操作。
 
-## Introduction to Custom Tool Development
+## 自定义工具开发简介
 
-### Why Create Custom Tools?
+### 为什么要创建自定义工具？
 
-While DocsGPT offers a range of built-in tools and a versatile API Tool, there are many scenarios where a custom Python tool is the best solution:
+虽然 DocsGPT 提供了一系列内置工具和多功能 API 工具，但在许多场景下，自定义 Python 工具仍是最佳解决方案：
 
-* **Integrating with Proprietary Systems:** Connect to internal APIs, databases, or services that are not publicly accessible or require complex authentication.
-* **Adding Domain-Specific Functionalities:** Implement logic specific to your industry or use case that isn't covered by general-purpose tools.
-* **Automating Unique Workflows:** Create tools that orchestrate multiple steps or interact with systems in a way unique to your operational needs.
-* **Connecting to Any System with an Accessible Interface:** If you can interact with a system programmatically using Python (e.g., through libraries, SDKs, or direct HTTP requests), you can likely build a DocsGPT tool for it.
-* **Complex Logic or Data Transformation:** When API interactions require intricate logic before sending a request or after receiving a response, or when data needs significant transformation that is difficult for an LLM to handle directly.
+* **与专有系统集成**：连接内部 API、数据库或服务，这些系统通常不公开访问或需要复杂的身份验证。
+* **添加领域特定功能**：实现针对您所在行业或用例的特定逻辑，这些功能未被通用工具覆盖。
+* **自动化独特工作流**：创建协调多个步骤或与系统交互的工具，以满足您独特的操作需求。
+* **连接任何具有可访问接口的系统**：如果可以通过 Python 以编程方式与系统交互（例如通过库、SDK 或直接 HTTP 请求），您很可能可以为其构建 DocsGPT 工具。
+* **复杂逻辑或数据转换**：当 API 交互需要在发送请求前或接收响应后执行复杂逻辑，或当数据需要 LLM 难以直接处理的重大转换时。
 
-### Prerequisites
+### 环境要求
 
-Before you begin, ensure you have:
+开始前，请确保您具备：
 
-* A solid understanding of Python programming.
-* Familiarity with the DocsGPT project structure, particularly the `application/agents/tools/` directory where custom tools reside.
-* Basic knowledge of how APIs work, as many tools involve interacting with external or internal APIs.
-* Your DocsGPT development environment set up. If not, please refer to the [Setting Up a Development Environment](/Deploying/Development-Environment) guide.
+* 扎实的 Python 编程基础
+* 熟悉 DocsGPT 项目结构，特别是存放自定义工具的 `application/agents/tools/` 目录
+* API 工作原理的基本知识，因为许多工具涉及与外部或内部 API 交互
+* 已设置好 DocsGPT 开发环境。若未完成，请参考[设置开发环境](/Deploying/Development-Environment)指南
 
-## The Anatomy of a DocsGPT Tool
+## DocsGPT 工具剖析
 
-Custom tools in DocsGPT are Python classes that inherit from a base `Tool` class and implement specific methods to define their behavior, capabilities, and configuration needs.
+DocsGPT 中的自定义工具是继承自基础 `Tool` 类的 Python 类，通过实现特定方法来定义其行为、功能和配置需求。
 
-The **foundation** for all custom tools is the abstract base class, located in `application/agents/tools/base.py`. Your custom tool class **must** inherit from this class.
+所有自定义工具的**基础**是一个抽象基类，位于 `application/agents/tools/base.py`。您的自定义工具类**必须**继承自该基类。
 
-### Essential Methods to Implement
+### 必须实现的核心方法
 
-Your custom tool class needs to implement the following methods:
+自定义工具类需要实现以下方法：
 
 1. **`__init__(self, config: dict)`**
     
-    - **Purpose:** The constructor for your tool. It's called when DocsGPT initializes the tool.
-    - **Usage:** This method is typically used to receive and store tool-specific configurations passed via the `config` dictionary. This dictionary is populated based on the tool's settings, often configured through the DocsGPT UI or environment variables. For example, you would store API keys, base URLs, or database connection strings here.
-    - **Example** (`brave.py`)**:**
+    - **用途:** 工具的构造函数，在 DocsGPT 初始化工具时调用。
+    - **用法:** 该方法通常用于接收并存储通过 `config` 字典传递的工具特定配置。该字典基于工具的设置填充，通常通过 DocsGPT UI 或环境变量配置。例如，您可以在此存储 API 密钥、基础 URL 或数据库连接字符串。
+    - **示例** (`brave.py`)**:**
         ``` python
         class BraveSearchTool(Tool):
             def __init__(self, config):
                 self.config = config
-                self.token = config.get("token", "") # API Key for Brave Search
+                self.token = config.get("token", "") # Brave Search 的 API 密钥
                 self.base_url = "https://api.search.brave.com/res/v1"
         ```
 
 2. **`execute_action(self, action_name: str, **kwargs) -> dict`**
     
-    - **Purpose:** This is the workhorse of your tool. The LLM, acting as an agent, calls this method when it decides to use one of the actions your tool provides.
-    - **Parameters:**
-        - `action_name` (str): A string specifying which of the tool's actions to run (e.g., "brave_web_search").
-        - `**kwargs` (dict): A dictionary containing the parameters for that specific action. These parameters are defined in the tool's metadata (`get_actions_metadata()`) and are extracted or inferred by the LLM from the user's query.
-    - **Return Value:** A dictionary containing the result of the action. It's good practice to include keys like:
-        - `status_code` (int): An HTTP-like status code (e.g., 200 for success, 500 for error).
-        - `message` (str): A human-readable message describing the outcome.
-        - `data` (any): The actual data payload returned by the action (if applicable).
-        - `error` (str): An error message if the action failed.
-    - **Example (`read_webpage.py`):**
+    - **用途:** 这是工具的核心方法。当 LLM 作为代理决定使用工具提供的某个操作时，会调用此方法。
+    - **参数:**
+        - `action_name` (str): 指定要运行的工具操作的字符串（例如 "brave_web_search"）。
+        - `**kwargs` (dict): 包含该操作特定参数的字典。这些参数在工具的元数据（`get_actions_metadata()`）中定义，并由 LLM 从用户查询中提取或推断。
+    - **返回值:** 包含操作结果的字典。建议包含以下键：
+        - `status_code` (int): 类似 HTTP 的状态码（例如 200 表示成功，500 表示错误）。
+        - `message` (str): 描述结果的可读消息。
+        - `data` (any): 操作返回的实际数据负载（如果适用）。
+        - `error` (str): 操作失败时的错误消息。
+    - **示例 (`read_webpage.py`):**
         
         ``` python
         def execute_action(self, action_name: str, **kwargs) -> str:
@@ -75,7 +76,7 @@ Your custom tool class needs to implement the following methods:
             url = kwargs.get("url")
             if not url:
                 return "Error: URL parameter is missing."
-            # ... (logic to fetch and parse webpage) ...
+            # ... (逻辑获取并解析网页) ...
             try:
                 # ...
                 return markdown_content 
@@ -83,104 +84,104 @@ Your custom tool class needs to implement the following methods:
                 return f"Error processing URL {url}: {e}"
         ```
         
-        A more structured return:
+        更结构化的返回：
         
         ``` python
-        # ... inside execute_action
+        # ... 在 execute_action 内部
         try:
-            # ... logic ...
-            return {"status_code": 200, "message": "Webpage read successfully", "data": markdown_content}
+            # ... 逻辑 ...
+            return {"status_code": 200, "message": "网页读取成功", "data": markdown_content}
         except Exception as e:
-            return {"status_code": 500, "message": f"Error processing URL {url}", "error": str(e)}
+            return {"status_code": 500, "message": f"处理 URL {url} 时出错", "error": str(e)}
         ```
         
 3. **`get_actions_metadata(self) -> list`**
     
-    - **Purpose:** This method is **critical** for the LLM to understand what your tool can do, when to use it, and what parameters it needs. It effectively advertises your tool's capabilities.
-    - **Return Value:** A list of dictionaries. Each dictionary describes one distinct action the tool can perform and must follow a specific JSON schema structure.
-        - `name` (str): A unique and descriptive name for the action (e.g., `mytool_get_user_details`). It's a common convention to prefix with the tool name to avoid collisions.
-        - `description` (str): A clear, concise, and unambiguous description of what the action does. **Write this for the LLM.** The LLM uses this description to decide if this action is appropriate for a given user query.
-        - `parameters` (dict): A JSON Schema object defining the parameters that the action expects. This schema tells the LLM what arguments are needed, their types, and which are required.
-            - `type`: Should always be `"object"`.
-            - `properties`: A dictionary where each key is a parameter name, and the value is an object defining its `type` (e.g., "string", "integer", "boolean") and `description`.
-            - `required`: A list of strings, where each string is the name of a parameter that is mandatory for the action.
-    - **Example (`postgres.py` - partial):**
+    - **用途:** 该方法**至关重要**，用于让 LLM 理解工具的功能、使用时机以及所需参数。它实际上是工具能力的广告。
+    - **返回值:** 字典列表。每个字典描述工具可以执行的一个独立操作，并必须遵循特定的 JSON 模式结构。
+        - `name` (str): 操作的唯一且描述性名称（例如 `mytool_get_user_details`）。通常建议加上工具名前缀以避免冲突。
+        - `description` (str): 对操作功能的清晰、简洁且明确的描述。**为 LLM 编写此描述。** LLM 使用此描述来决定该操作是否适用于给定的用户查询。
+        - `parameters` (dict): 定义操作所需参数的 JSON 模式对象。此模式告诉 LLM 需要哪些参数、它们的类型以及哪些是必需的。
+            - `type`: 应始终为 `"object"`。
+            - `properties`: 字典，其中每个键是参数名称，值是一个定义其 `type`（例如 "string"、"integer"、"boolean"）和 `description` 的对象。
+            - `required`: 字符串列表，每个字符串是操作必需的参数名称。
+    - **示例 (`postgres.py` - 部分):**
         
         ``` python
         def get_actions_metadata(self):
             return [
                 {
                     "name": "postgres_execute_sql",
-                    "description": "Execute an SQL query against the PostgreSQL database...",
+                    "description": "在 PostgreSQL 数据库上执行 SQL 查询...",
                     "parameters": {
                         "type": "object",
                         "properties": {
                             "sql_query": {
                                 "type": "string",
-                                "description": "The SQL query to execute.",
+                                "description": "要执行的 SQL 查询。",
                             },
                         },
                         "required": ["sql_query"],
-                        "additionalProperties": False, # Good practice to prevent unexpected params
+                        "additionalProperties": False, # 防止意外参数的良好实践
                     },
                 },
-                # ... other actions like postgres_get_schema
+                # ... 其他操作如 postgres_get_schema
             ]
         ```
         
 4. **`get_config_requirements(self) -> dict`**
     
-    - **Purpose:** Defines the configuration parameters that your tool needs to function (e.g., API keys, specific base URLs, connection strings, default settings). This information can be used by the DocsGPT UI to dynamically render configuration fields for your tool or for validation.
-    - **Return Value:** A dictionary where keys are the configuration item names (which will be keys in the `config` dict passed to `__init__`) and values are dictionaries describing each requirement:
-        - `type` (str): The expected data type of the config value (e.g., "string", "boolean", "integer").
-        - `description` (str): A human-readable description of what this configuration item is for.
-        - `secret` (bool, optional): Set to `True` if the value is sensitive (e.g., an API key) and should be masked or handled specially in UIs. Defaults to `False`.
-    - **Example (`brave.py`):**
+    - **用途:** 定义工具运行所需的配置参数（例如 API 密钥、特定基础 URL、连接字符串、默认设置）。此信息可用于 DocsGPT UI 动态渲染工具的配置字段或进行验证。
+    - **返回值:** 字典，其中键是配置项名称（将作为 `config` 字典的键传递给 `__init__`），值是描述每个需求的字典：
+        - `type` (str): 配置值的预期数据类型（例如 "string"、"boolean"、"integer"）。
+        - `description` (str): 此配置项用途的人类可读描述。
+        - `secret` (bool, 可选): 如果值是敏感的（例如 API 密钥），应设置为 `True`，以便在 UI 中屏蔽或特殊处理。默认为 `False`。
+    - **示例 (`brave.py`):**
         
         ``` python
         def get_config_requirements(self):
             return {
-                "token": { # This 'token' will be a key in the config dict for __init__
+                "token": { # 此 'token' 将是 __init__ 的 config 字典中的键
                     "type": "string",
-                    "description": "Brave Search API key for authentication",
+                    "description": "用于身份验证的 Brave Search API 密钥",
                     "secret": True
                 },
             }
-        ```    
+        ```
 
-## Tool Registration and Discovery
+## 工具注册与发现
 
-DocsGPT's ToolManager (located in application/agents/tools/tool_manager.py) automatically discovers and loads tools.
+DocsGPT 的 ToolManager（位于 application/agents/tools/tool_manager.py）会自动发现并加载工具。
 
-As long as your custom tool:
+只要您的自定义工具满足以下条件：
 
-1. Is placed in a Python file within the `application/agents/tools/` directory (and the filename is not `base.py` or starts with `__`).
-2. Correctly inherits from the `Tool` base class.
-3. Implements all the abstract methods (`execute_action`, `get_actions_metadata`, `get_config_requirements`).
+1. 存放在 `application/agents/tools/` 目录下的 Python 文件中（且文件名不是 `base.py` 或以 `__` 开头）。
+2. 正确继承自 `Tool` 基类。
+3. 实现了所有抽象方法（`execute_action`、`get_actions_metadata`、`get_config_requirements`）。
 
-The `ToolManager` should be able to load it when DocsGPT starts. 
+当 DocsGPT 启动时，`ToolManager` 就能自动加载该工具。
 
-## Configuration & Secrets Management
+## 配置与密钥管理
 
-- **Configuration Source:** The `config` dictionary passed to your tool's `__init__` method is typically populated from settings defined in the DocsGPT UI (if available for the tool) or from environment variables/configuration files that DocsGPT loads (see [⚙️ App Configuration](/Deploying/DocsGPT-Settings)). The keys in this dictionary should match the names you define in `get_config_requirements()`.
-- **Secrets:** Never hardcode secrets (like API keys or passwords) directly into your tool's Python code. Instead, define them as configuration requirements (using `secret: True` in `get_config_requirements()`) and let DocsGPT's configuration system inject them via the `config` dictionary at runtime. This ensures that secrets are managed securely and are not exposed in your codebase.
+- **配置来源**：传递给工具 `__init__` 方法的 `config` 字典通常来源于 DocsGPT 界面中定义的设置（如果该工具支持界面配置），或来自 DocsGPT 加载的环境变量/配置文件（参见 [⚙️ 应用配置](/Deploying/DocsGPT-Settings)）。字典中的键名应与 `get_config_requirements()` 中定义的名称保持一致。
+- **密钥管理**：切勿在工具代码中硬编码密钥（如 API 密钥或密码）。应将其定义为配置需求（在 `get_config_requirements()` 中使用 `secret: True` 标记），通过 DocsGPT 的配置系统在运行时通过 `config` 字典注入。这能确保密钥安全管理，避免在代码库中暴露。
 
-## Best Practices for Tool Development
+## 工具开发最佳实践
 
-- **Atomicity:** Design tool actions to be as atomic (single, well-defined purpose) as possible. This makes them easier for the LLM to understand and combine.
-- **Clarity in Metadata:** Ensure action names and descriptions in `get_actions_metadata()` are extremely clear, specific, and unambiguous. This is the primary way the LLM understands your tool.
-- **Robust Error Handling:** Implement comprehensive error handling within your `execute_action` logic (and the private methods it calls). Return informative error messages in the result dictionary so the LLM or user can understand what went wrong.
-- **Security:**
-    - Be mindful of the security implications of your tool, especially if it interacts with sensitive systems or can execute arbitrary code/queries.
-    - Validate and sanitize any inputs, especially if they are used to construct database queries or shell commands, to prevent injection attacks.
-- **Performance:** Consider the performance implications of your tool's actions. If an action is slow, it will impact the user experience. Optimize where possible.
+- **原子性**：将工具操作设计为尽可能原子化（单一、目的明确）。这有助于 LLM 更容易理解和组合这些操作。
+- **元数据清晰性**：确保 `get_actions_metadata()` 中的操作名称和描述极其清晰、具体且无歧义。这是 LLM 理解您工具的主要方式。
+- **健壮的错误处理**：在 `execute_action` 逻辑（及其调用的私有方法）中实现全面的错误处理。在返回的结果字典中包含信息丰富的错误消息，以便 LLM 或用户能够理解问题所在。
+- **安全性**：
+    - 注意工具的安全隐患，特别是当它与敏感系统交互或可以执行任意代码/查询时。
+    - 验证和清理所有输入，特别是用于构建数据库查询或 shell 命令的输入，以防止注入攻击。
+- **性能**：考虑工具操作的性能影响。如果操作缓慢，将影响用户体验。尽可能进行优化。
 
-## (Optional) Contributing Your Tool
+## （可选）贡献您的工具
 
-If you develop a custom tool that you believe could be valuable to the broader DocsGPT community and is general-purpose:
+如果您开发了一个自定义工具，并认为它对更广泛的 DocsGPT 社区有价值且具有通用性：
 
-1. Ensure it's well-documented (both in code and with clear metadata).
-2. Make sure it adheres to the best practices outlined above.
-3. Consider opening a Pull Request to the [DocsGPT GitHub repository](https://github.com/arc53/DocsGPT) with your new tool, including any necessary documentation updates.
+1. 确保充分文档化（包括代码注释和清晰的元数据）
+2. 确保遵循上述最佳实践指南
+3. 考虑向 [DocsGPT GitHub 仓库](https://github.com/arc53/DocsGPT) 提交 Pull Request，包含您的新工具及必要的文档更新
 
-By following this guide, you can create powerful custom tools that extend DocsGPT's capabilities to your specific operational environment.
+遵循本指南，您可以创建强大的自定义工具，将 DocsGPT 的能力扩展到您的特定操作环境中。

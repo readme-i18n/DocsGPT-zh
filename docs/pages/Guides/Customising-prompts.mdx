@@ -1,34 +1,29 @@
 ---
-title: Customizing Prompts 
-description: This guide will explain how to change prompts in DocsGPT and why it might be benefitial. Additionaly this article expains additional variables that can be used in prompts.
+
+title: 自定义提示词
+description: 本指南将说明如何在DocsGPT中修改提示词及其优势，同时介绍提示词中可用的附加变量。
 ---
 
 import Image from 'next/image'
 
-# Customizing the Main Prompt
+# 自定义主提示词
 
-Customizing the main prompt for DocsGPT gives you the ability to tailor the AI's responses to your specific requirements. By modifying the prompt text, you can achieve more accurate and relevant answers. Here's how you can do it:
+自定义DocsGPT的主提示词可让您根据特定需求调整AI的响应。通过修改提示文本，您能获得更精准相关的回答。具体操作如下：
 
-1. Navigate to `SideBar -> Settings`.
+1. 前往`侧边栏 -> 设置`
 
+2. 在设置中选择`当前提示词`，此时可查看多种提示风格
 
+3. 点击目标提示词的`编辑图标`，即可查看当前提示内容并进行自定义修改
 
+### 视频演示
 
-2.In Settings select the `Active Prompt` now you will be able to see various prompts style.x
-
-
-
-
-3.Click on the `edit icon`  on the prompt of your choice and you will be able to see the current prompt for it,you can now customise  the prompt as per your choice.
-
-### Video Demo
 <Image src="/prompts.gif" alt="prompts" width={800} height={500} />
 
+## 提示词修改示例
 
+**原始提示词：**
 
-## Example Prompt Modification
-
-**Original Prompt:**
 ```markdown
 You are a DocsGPT, friendly and helpful AI assistant by Arc53 that provides help with documents. You give thorough answers with code examples if possible.
 Use the following pieces of context to help answer the users question. If it's not relevant to the question, provide friendly responses.
@@ -39,11 +34,10 @@ When using code examples, use the following format:
 {summaries}
 ```
 
-Note that `{summaries}` allows model to see and respond to your upploaded documents. If you don't want this functionality you can safely remove it from the customized prompt.
+请注意`{summaries}`变量允许模型读取并响应您上传的文档。若需禁用此功能，可直接从自定义提示词中移除该变量。
 
-Feel free to customize the prompt to align it with your specific use case or the kind of responses you want from the AI. For example, you can focus on specific document types, industries, or topics to get more targeted results.
+您可自由调整提示词以匹配特定用例或期望的AI响应类型。例如，通过聚焦特定文档类型、行业或主题来获取更定向的结果。
 
-## Conclusion
+## 结语
 
-Customizing the main prompt for DocsGPT allows you to tailor the AI's responses to your unique requirements. Whether you need in-depth explanations, code examples, or specific insights, you can achieve it by modifying the main prompt. Remember to experiment and fine-tune your prompts to get the best results.
-
+定制 DocsGPT 的主提示词可让您根据独特需求调整 AI 的响应方式。无论是需要深度解释、代码示例还是特定见解，您都可以通过修改主提示词来实现。请记住通过实验和微调来获得最佳效果。

@@ -1,63 +1,64 @@
 ---
-title: Understanding and Configuring Embedding Models in DocsGPT
-description: Learn about embedding models, their importance in DocsGPT, and how to configure them for optimal performance.
+
+title: 理解与配置 DocsGPT 中的嵌入模型
+description: 了解嵌入模型及其在 DocsGPT 中的重要性，以及如何配置以获得最佳性能。
 ---
 
-# Understanding and Configuring Embedding Models in DocsGPT
+# 理解与配置 DocsGPT 中的嵌入模型
 
-Embedding models are a crucial component of DocsGPT, enabling its powerful document understanding and question-answering capabilities. This guide will explain what embedding models are, why they are essential for DocsGPT, and how to configure them.
+嵌入模型是 DocsGPT 的核心组件，为其提供了强大的文档理解与问答能力。本指南将阐述嵌入模型的概念、其在 DocsGPT 中的关键作用以及配置方法。
 
-## What are Embedding Models?
+## 什么是嵌入模型？
 
-In simple terms, an embedding model is a type of language model that converts text into numerical vectors. These vectors, known as embeddings, capture the semantic meaning of the text.  Think of it as translating words and sentences into a language that computers can understand mathematically, where similar meanings are represented by vectors that are close to each other in vector space.
+简而言之，嵌入模型是一种将文本转换为数值向量的语言模型。这些被称为嵌入的向量能够捕捉文本的语义信息。可以将其理解为将单词和句子翻译成计算机能够通过数学方式理解的语言，其中语义相近的内容在向量空间中表现为彼此接近的向量。
 
-**Why are embedding models important for DocsGPT?**
+**为什么嵌入模型对 DocsGPT 至关重要？**
 
-DocsGPT uses embedding models for several key tasks:
+DocsGPT 依赖嵌入模型完成多项关键任务：
 
-*   **Semantic Search:** When you upload documents to DocsGPT, the application uses an embedding model to generate embeddings for each document chunk. These embeddings are stored in a vector store. When you ask a question, your query is also converted into an embedding. DocsGPT then performs a semantic search in the vector store, finding document chunks whose embeddings are most similar to your query embedding. This allows DocsGPT to retrieve relevant information based on the *meaning* of your question and documents, not just keyword matching.
-*   **Document Understanding:**  Embeddings help DocsGPT understand the underlying meaning of your documents, enabling it to answer questions accurately and contextually, even if the exact keywords from your question are not present in the retrieved document chunks.
+*   **语义搜索:** 当您将文档上传至 DocsGPT 时，应用程序会使用嵌入模型为每个文档片段生成嵌入向量。这些向量存储在向量数据库中。当您提出问题时，您的查询也会被转换为嵌入向量。DocsGPT 随后在向量数据库中进行语义搜索，找出与您查询向量最相似的文档片段。这使得 DocsGPT 能够基于问题和文档的*语义*关联性（而非仅关键词匹配）检索相关信息。
+*   **文档理解:** 嵌入向量帮助 DocsGPT 理解文档的深层含义，使其即便在检索到的文档片段中未出现提问的精确关键词时，仍能给出准确且符合语境的回答。
 
-In essence, embedding models are the bridge that allows DocsGPT to understand the nuances of human language and connect your questions to the relevant information within your documents.
+本质上，嵌入模型是使 DocsGPT 能够理解人类语言细微差别，并将您的问题与文档中相关信息连接起来的桥梁。
 
-## Out-of-the-Box Embedding Model Support in DocsGPT
+## DocsGPT 开箱即用的嵌入模型支持
 
-DocsGPT is designed to be flexible and supports a wide range of embedding models right out of the box. Currently, DocsGPT provides native support for models from two major sources:
+DocsGPT 设计灵活，默认支持多种嵌入模型。目前提供对以下两大来源模型的原生支持：
 
-*   **Sentence Transformers:** DocsGPT supports all models available through the [Sentence Transformers library](https://www.sbert.net/). This library offers a vast selection of pre-trained embedding models, known for their quality and efficiency in various semantic tasks.
-*   **OpenAI Embeddings:** DocsGPT also supports using embedding models from OpenAI, specifically the `text-embedding-ada-002` model, which is a powerful and widely used embedding model from OpenAI's API.
+*   **Sentence Transformers:** DocsGPT 支持通过 [Sentence Transformers library](https://www.sbert.net/) 提供的所有模型。该库提供了大量预训练的嵌入模型，这些模型在各种语义任务中以质量和效率著称。
+*   **OpenAI 嵌入:** DocsGPT 同样支持使用 OpenAI 的嵌入模型，特别是 `text-embedding-ada-002` 模型，这是 OpenAI API 中一个功能强大且广泛使用的嵌入模型。
 
-## Configuring Sentence Transformer Models
+## 配置 Sentence Transformer 模型
 
-To utilize Sentence Transformer models within DocsGPT, you need to follow these steps:
+要在 DocsGPT 中使用 Sentence Transformer 模型，您需要按照以下步骤操作：
 
-1.  **Download the Model:** Sentence Transformer models are typically hosted on Hugging Face Model Hub. You need to download your chosen model and place it in the `model/` folder in the root directory of your DocsGPT project.
+1. **下载模型：** Sentence Transformer 模型通常托管在 Hugging Face Model Hub 上。您需要下载所选模型并放置到 DocsGPT 项目根目录的 `model/` 文件夹中。
 
-    For example, to use the `all-mpnet-base-v2` model, you would set `EMBEDDINGS_NAME` as described below, and ensure that the model files are available locally (DocsGPT will attempt to download it if it's not found, but local download is recommended for development and offline use).
+    例如，要使用 `all-mpnet-base-v2` 模型，您需要按以下说明设置 `EMBEDDINGS_NAME`，并确保模型文件在本地可用（如果未找到模型，DocsGPT 会尝试自动下载，但建议在开发和离线使用时预先本地下载）。
 
-2.  **Set `EMBEDDINGS_NAME` in `.env` (or `settings.py`):**  You need to configure the `EMBEDDINGS_NAME` setting in your `.env` file (or `settings.py`) to point to the desired Sentence Transformer model.
+2. **在 `.env`（或 `settings.py`）中设置 `EMBEDDINGS_NAME`：** 您需要在 `.env` 文件（或 `settings.py`）中配置 `EMBEDDINGS_NAME` 参数，指向所需的 Sentence Transformer 模型。
 
-    *   **Using a pre-downloaded model from `model/` folder:** You can specify a path to the downloaded model within the `model/` directory. For instance, if you downloaded `all-mpnet-base-v2` and it's in `model/all-mpnet-base-v2`, you could potentially use a relative path like (though direct path to the model name is usually sufficient):
+    * **使用 `model/` 文件夹中预下载的模型：** 可以指定 `model/` 目录内已下载模型的路径。例如，如果您下载了 `all-mpnet-base-v2` 并放在 `model/all-mpnet-base-v2` 中，可以使用如下相对路径（不过通常直接使用模型名称即可）：
 
         ```
         EMBEDDINGS_NAME=huggingface_sentence-transformers/all-mpnet-base-v2
         ```
-        or simply use the model identifier:
+        或直接使用模型标识符：
         ```
         EMBEDDINGS_NAME=sentence-transformers/all-mpnet-base-v2
         ```
 
-    *   **Using a model directly from Hugging Face Model Hub:** You can directly specify the model identifier from Hugging Face Model Hub:
+    * **直接从 Hugging Face Model Hub 使用模型：** 可以直接指定 Hugging Face Model Hub 中的模型标识符：
 
         ```
         EMBEDDINGS_NAME=huggingface_sentence-transformers/all-mpnet-base-v2
         ```
 
-## Using OpenAI Embeddings
+## 使用 OpenAI 嵌入模型
 
-To use OpenAI's `text-embedding-ada-002` embedding model, you need to set `EMBEDDINGS_NAME` to `openai_text-embedding-ada-002` and ensure you have your OpenAI API key configured correctly via `API_KEY` in your `.env` file (if you are not using Azure OpenAI).
+要使用 OpenAI 的 `text-embedding-ada-002` 嵌入模型，需将 `EMBEDDINGS_NAME` 设为 `openai_text-embedding-ada-002`，并通过 `.env` 文件中的 `API_KEY` 正确配置 OpenAI API 密钥（若未使用 Azure OpenAI）。
 
-**Example `.env` configuration for OpenAI Embeddings:**
+**OpenAI 嵌入模型的示例 `.env` 配置：**
 
 ```
 LLM_PROVIDER=openai
@@ -65,8 +66,8 @@ API_KEY=YOUR_OPENAI_API_KEY # Your OpenAI API Key
 EMBEDDINGS_NAME=openai_text-embedding-ada-002
 ```
 
-## Adding Support for Other Embedding Models
+## 添加对其他嵌入模型的支持
 
-If you wish to use an embedding model that is not supported out-of-the-box, a good starting point for adding custom embedding model support is to examine the `base.py` file located in the `application/vectorstore` directory.
+如需使用非开箱即用的嵌入模型，可参考 `application/vectorstore` 目录下的 `base.py` 文件作为自定义嵌入模型支持的实现起点。
 
-Specifically, pay attention to the `EmbeddingsWrapper` and `EmbeddingsSingleton` classes. `EmbeddingsWrapper` provides a way to wrap different embedding model libraries into a consistent interface for DocsGPT. `EmbeddingsSingleton` manages the instantiation and retrieval of embedding model instances. By understanding these classes and the existing embedding model implementations, you can create your own custom integration for virtually any embedding model library you desire.
+特别关注 `EmbeddingsWrapper` 和 `EmbeddingsSingleton` 类：`EmbeddingsWrapper` 提供了将不同嵌入模型库封装为统一接口的方法；`EmbeddingsSingleton` 负责管理嵌入模型实例的初始化与获取。通过理解这些类及现有实现，可为任意嵌入模型库创建自定义集成方案。

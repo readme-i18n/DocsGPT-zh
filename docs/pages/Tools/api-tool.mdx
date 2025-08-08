@@ -1,54 +1,59 @@
 ---
-title: 🗝️ Generic API Tool
-description: Learn how to configure and use the API Tool in DocsGPT to connect with any RESTful API without writing custom code.
+
+title: 🗝️ 通用 API 工具
+description: 了解如何配置和使用 DocsGPT 中的 API 工具，无需编写自定义代码即可连接任何 RESTful API。
 ---
 
 import { Callout } from 'nextra/components';
 import Image from 'next/image';
 
-# Using the Generic API Tool
+# 使用通用 API 工具
 
-The API Tool provides a no-code/low-code solution to make DocsGPT interact with third-party or internal RESTful APIs. It acts as a bridge, allowing the Large Language Model (LLM) to leverage external services based on your chat interactions.
- This guide will walk you through its capabilities, configuration, and best practices.
+API 工具提供了一种无代码/低代码解决方案，使 DocsGPT 能够与第三方或内部 RESTful API 进行交互。它充当桥梁，让大语言模型(LLM)能够基于您的聊天对话调用外部服务。本指南将带您了解其功能、配置和最佳实践。
 
-## Introduction to the Generic API Tool
+## 通用 API 工具简介
 
-**When to Use It:**
-    * Ideal for quickly integrating existing APIs where the interaction involves standard HTTP requests (GET, POST, PUT, DELETE).
-    * Suitable for fetching data to enrich answers (e.g., current weather, stock prices, product details).
-    * Useful for triggering simple actions in other systems (e.g., sending a notification, creating a basic task).
+**适用场景：**
 
-**Contrast with Custom Python Tools:**
-    * **API Tool:** Best for straightforward API calls. Configuration is done through the DocsGPT UI.
-    * **Custom Python Tools:** Preferable when you need complex logic before or after the API call, handle non-standard authentication (like complex OAuth flows), manage multi-step API interactions, or require intricate data processing not easily managed by the LLM alone. See [Creating a Custom Tool](/Tools/creating-a-tool) for more.
+* 适合快速集成标准 HTTP 请求(GET、POST、PUT、DELETE)的现有 API
+    * 适用于获取数据以丰富回答内容(例如当前天气、股票价格、产品详情)
+    * 可用于触发其他系统中的简单操作(例如发送通知、创建基础任务)
 
-## Capabilities of the API Tool
+**与自定义 Python 工具的对比：**
 
-**Supported HTTP Methods:** You can configure actions using standard HTTP methods such as:
-    * `GET`: To retrieve data.
-    * `POST`: To submit data to create a new resource.
-    * `PUT`: To update an existing resource.
-    * `DELETE`: To remove a resource.
+* **API 工具：** 最适合简单的 API 调用，通过 DocsGPT 界面即可完成配置
+    * **自定义 Python 工具：** 当您需要在 API 调用前后执行复杂逻辑、处理非标准认证(如复杂的 OAuth 流程)、管理多步骤 API 交互，或需要进行 LLM 难以单独处理的复杂数据处理时更为适用。详情请参阅[创建自定义工具](/Tools/creating-a-tool)
 
-**Request Configuration:**
-    * **Headers:** Define static or dynamic HTTP headers for authentication (e.g., API keys), content type specification, etc.
-    * **Query Parameters:** Specify URL query parameters, which can be static or dynamically filled by the LLM based on user input.
-    * **Request Body:** Define the structure of the request body (e.g., JSON), with fields that can be static or dynamically populated by the LLM.
+## API 工具功能
 
-**Response Handling:**
-    * The API Tool executes the request and receives the raw response from the API (typically JSON or plain text).
-    * This raw response is then passed back to the LLM.
-    * The LLM uses this response, along with the context of your query and the description of the API tool action, to formulate an answer or decide on follow-up actions. The API tool itself doesn't deeply parse or transform the response beyond basic content type detection (e.g., loading JSON into a parsable object).
+**支持的 HTTP 方法:** 您可以使用以下标准 HTTP 方法配置操作：
 
-## Configuring an API as a Tool
+* `GET`: 用于获取数据
+    * `POST`: 用于提交数据以创建新资源
+    * `PUT`: 用于更新现有资源
+    * `DELETE`: 用于删除资源
 
-You can configure the API Tool through the DocsGPT user interface, found in **Settings -> Tools**. When you add or modify an API Tool, you'll define specific actions that DocsGPT can perform.
+**请求配置:**
+
+* **请求头:** 定义静态或动态 HTTP 头，用于身份验证（如 API 密钥）、内容类型指定等
+    * **查询参数:** 指定 URL 查询参数，这些参数可以是静态的，也可以由 LLM 根据用户输入动态填充
+    * **请求体:** 定义请求体结构（如 JSON），其中字段可以是静态的或由 LLM 动态填充
+
+**响应处理:**
+
+* API 工具执行请求并接收来自 API 的原始响应（通常是 JSON 或纯文本）
+    * 该原始响应随后传回给 LLM
+    * LLM 利用此响应，结合您的查询上下文和 API 工具操作的描述，来构建答案或决定后续操作。API 工具本身不会对响应进行深度解析或转换，仅执行基本的内容类型检测（例如将 JSON 加载为可解析对象）
+
+## 将 API 配置为工具
+
+您可以通过 DocsGPT 用户界面配置 API 工具，路径为**设置 -> 工具**。添加或修改 API 工具时，您需要定义 DocsGPT 可执行的具体操作。
 
 <Callout type="info">
-  The configuration involves defining how DocsGPT should call an API endpoint. Each configured API call essentially becomes a distinct "action" the LLM can choose to use.
+  配置过程涉及定义 DocsGPT 如何调用 API 端点。每个配置好的 API 调用本质上都会成为 LLM 可选择使用的独立"操作"。
 </Callout>
 
-Below is an example of how you might configure an API action, inspired by setting up a phone number validation service:
+以下是一个配置 API 操作的示例，灵感来源于设置电话号码验证服务：
 
 <Image
   src="/toolIcons/api-tool-example.png"
@@ -57,51 +62,54 @@ Below is an example of how you might configure an API action, inspired by settin
   height={450}
   style={{ margin: '1em auto', display: 'block', borderRadius: '8px' }}
 />
-_Figure 1: Example configuration for an API Tool action to validate phone numbers._
 
-**Defining an API Endpoint/Action:**
+_图1：用于验证电话号码的 API 工具操作配置示例。_
 
-When you configure a new API action, you'll fill in the following fields:
+**定义 API 端点/操作：**
 
--   **`Name`:** A user-friendly name for this specific API action (e.g., "Phone-check" as in the image, or more specific like "ValidateUSPhoneNumber"). This helps in managing your tools.
--   **`Description`:** This is a **critical field**. Provide a clear and concise description of what the API action does, what kind of input it expects (implicitly), and what kind of output it provides. The LLM uses this description to understand when and how to use this action.
--   **`URL`:** The full endpoint URL for the API request.
--   **`HTTP Method`:** Select the appropriate HTTP method (e.g., GET, POST) from a dropdown.
--   **`Headers`:** You can add custom HTTP headers as key-value pairs (Name, Value). Indicate if the value should be `Filled by LLM` or is static. If filled by LLM, provide a `Description` for the LLM.
+配置新的 API 操作时，您需要填写以下字段：
 
--   **`Query Parameters`:** For `GET` requests or when parameters are sent in the URL.
-    * **`Name`:** The name of the query parameter (e.g., `api_key`, `phone`).
-    * **`Type`:** The data type of the parameter (e.g., `string`).
-    * **`Filled by LLM` (Checkbox):**
-        - **Unchecked (Static):** The `Value` you provide will be used for every call (e.g., for an `api_key` that doesn't change).
-        - **Checked (Dynamic):** The LLM will extract the appropriate value from the user's chat query based on the `Description` you provide for this parameter. The `Value` field is typically left empty or contains a placeholder if `Filled by LLM` is checked.
-    * `Description`: Context for the LLM if the parameter is to be filled dynamically, or for your own reference if static.
-    * `Value`: The static value if not filled by LLM.
+-   **`Name`（名称）:** 为该API操作指定一个用户友好的名称（例如示例中的"Phone-check"，或更具体的"ValidateUSPhoneNumber"）。这有助于管理您的工具集。
+-   **`Description`（描述）:** 这是**关键字段**。需清晰简洁地说明该API操作的功能、预期输入类型（隐式说明）以及输出结果。LLM将根据此描述理解何时及如何使用该操作。
+-   **`URL`:** API请求的完整端点URL。
+-   **`HTTP Method`（HTTP方法）:** 从下拉菜单中选择适当的HTTP方法（如GET、POST）。
+-   **`Headers`（请求头）:** 可以添加自定义HTTP头作为键值对（名称，值）。需指明该值应由`LLM填充`还是静态值。若由LLM填充，需为此参数提供`Description`说明。
 
--   **`Request Body`:** Used to send data (commonly JSON) to the API. Similar to Query Parameters, you define fields with `Name`, `Type`, whether it's `Filled by LLM`, a `Description` for dynamic fields, and a static `Value` if applicable.
+-   **`Query Parameters`（查询参数）:** 适用于`GET`请求或通过URL传递参数的情况。
+    * **`Name`（名称）:** 查询参数名称（如`api_key`、`phone`）。
+    * **`Type`（类型）:** 参数数据类型（如`string`）。
+    * **`Filled by LLM`（由LLM填充）(复选框):**
+        - **未勾选（静态值）:** 每次调用将使用您提供的`Value`（例如固定不变的`api_key`）。
+        - **已勾选（动态值）:** LLM将根据您为该参数提供的`Description`，从用户聊天内容中提取合适值。若勾选此项，`Value`字段通常留空或包含占位符。
+    * `Description`（描述）: 若参数需动态填充，则为LLM提供上下文说明；若为静态参数，则作为您的参考说明。
+    * `Value`（值）: 若非LLM填充，则填写静态值。
 
-**Response Handling Guidance for the LLM:**
+-   **`Request Body`（请求体）:** 用于向API发送数据（通常为JSON）。与查询参数类似，您需要定义字段的`Name`、`Type`、是否由`LLM填充`、动态字段的`Description`说明，以及适用的静态`Value`。
 
-While the API Tool configuration UI doesn't have explicit fields for defining response parsing rules (like JSONPath extractors), you significantly influence how the LLM handles the response through:
-    * **Tool Action `Description`:** Clearly state what kind of information the API returns (e.g., "This API returns a JSON object with 'status' and 'location' fields for the phone number."). This helps the LLM know what to look for in the API's output.
-    * **Prompt Engineering:** For more complex scenarios, you might need to adjust your global or agent-specific prompts to guide DocsGPT on how to interpret and present information from API tool responses. See [Customising Prompts](/Guides/Customising-prompts).
+**LLM 响应处理指南**
 
-## Using the Configured API Tool in Chat
+虽然 API 工具配置界面没有明确定义响应解析规则的字段（如 JSONPath 提取器），但您可以通过以下方式显著影响 LLM 对响应的处理：
 
-Once an API action is configured and enabled, DocsGPT's LLM can decide to use it based on your natural language queries.
+* **工具操作 `Description`:** 明确说明 API 返回的信息类型（例如："此 API 返回一个包含电话号码 'status' 和 'location' 字段的 JSON 对象"）。这有助于 LLM 识别 API 输出中的关键信息。
+    * **提示词工程:** 对于更复杂的场景，您可能需要调整全局或特定代理的提示词，以指导 DocsGPT 如何解释和呈现来自 API 工具响应的信息。参见[自定义提示词](/Guides/Customising-prompts)。
 
-**Example (based on the phone validation tool in Figure 1):**
+## 在聊天中使用配置好的 API 工具
 
-1.  **User Query:** "Hey DocsGPT, can you check if +14155555555 is a valid phone number?"
+一旦 API 操作配置完成并启用，DocsGPT 的 LLM 可以根据您的自然语言查询决定是否使用它。
 
-2.  **DocsGPT (LLM Orchestration):**
-    * The LLM analyzes the query.
-    * It matches the intent ("check if ... is a valid phone number") with the description of the "Phone-check" API action.
-    * It identifies `+14155555555` as the value for the `phone` parameter (which was marked as `Filled by LLM` with the description "Phone number to check").
-    * DocsGPT constructs the GET API request.
-3.  **API Tool Execution:**
-    * The API Tool makes the HTTP GET request.
-    * The external API (AbstractAPI) processes the request and returns a JSON response, e.g.:
+**示例（基于图 1 中的电话验证工具）：**
+
+1. **用户查询**："嘿 DocsGPT，你能检查 +14155555555 是否是一个有效的电话号码吗？"
+
+2. **DocsGPT (LLM 编排)**:
+    * 大语言模型分析查询内容
+    * 将查询意图（"检查...是否为有效电话号码"）与 "Phone-check" API 操作的描述进行匹配
+    * 识别出 `+14155555555` 作为 `phone` 参数的值（该参数标记为 `由LLM填充`，描述为"待验证的电话号码"）
+    * DocsGPT 构建 GET API 请求
+
+3. **API 工具执行**:
+    * API 工具发起 HTTP GET 请求
+    * 外部 API (AbstractAPI) 处理请求并返回 JSON 响应，例如：
         ```json
         {
           "phone": "+14155555555",
@@ -120,34 +128,37 @@ Once an API action is configured and enabled, DocsGPT's LLM can decide to use it
         }
         ```
 
-4.  **DocsGPT Response Formulation:**
-    * The API Tool passes this JSON response back to the LLM.
-    * The LLM, guided by the tool's description and the user's original query, extracts relevant information and formulates a user-friendly answer.
-    * **DocsGPT Chat Response:** "Yes, +14155555555 appears to be a valid landline phone number in California, United States."
+4. **DocsGPT 响应生成**:
+    * API 工具将 JSON 响应传回大语言模型
+    * 大语言模型根据工具描述和用户原始查询，提取相关信息并生成用户友好的回答
+    * **DocsGPT 聊天响应**: "是的，+14155555555 似乎是美国加利福尼亚州的一个有效座机号码。"
 
-## Advanced Tips and Best Practices
+## 高级技巧与最佳实践
 
-**Clear Description is the Key:** The LLM relies heavily on the `Description` field of the API action and its parameters. Make them unambiguous and action-oriented. Clearly state what the tool does and what kind of input it expects (even if implicitly through parameter descriptions). 
+**清晰的描述是关键：** LLM 高度依赖 API 操作的 `Description` 字段及其参数描述。确保这些描述明确且以行动为导向。清晰说明工具的功能以及预期的输入类型（即使是通过参数描述隐式表达）。
 
-**Iterative Testing:** After configuring an API tool, test it with various phrasings of user queries to ensure the LLM triggers it correctly and interprets the response as expected.
-  
-**Error Handling:**
-    * If an API call fails, the API Tool will return an error message and status code from the `requests` library or the API itself. The LLM may relay this error or try to explain it.
-    * Check DocsGPT's backend logs for more detailed error information if you encounter issues.
-  
-**Security Considerations:**
-    * **API Keys:** Be mindful of API keys and other sensitive credentials. The example image shows an API key directly in the configuration. For production or shared environments avoid exposing configurations with sensitive keys.
-    * **Rate Limits:** Be aware of the rate limits of the APIs you are integrating. Frequent calls from DocsGPT could exceed these limits.
-    * **Data Privacy:** Consider the data privacy implications of sending user query data to third-party APIs.
--   **Idempotency:** For tools that modify data (POST, PUT, DELETE), be aware of whether the API operations are idempotent to avoid unintended consequences from repeated calls if the LLM retries an action.
+**迭代测试：** 配置完 API 工具后，使用不同措辞的用户查询进行测试，确保 LLM 能正确触发该工具并按预期解析响应。
 
-## Limitations
+**错误处理：**
 
-While powerful, the Generic API Tool has some limitations:
+* 如果 API 调用失败，API 工具将返回来自 `requests` 库或 API 本身的错误消息和状态码。LLM 可能会转发此错误或尝试解释它。
+    * 若遇到问题，可查看 DocsGPT 的后端日志获取更详细的错误信息。
 
--   **Complex Authentication:** Advanced authentication flows like OAuth 2.0 (especially 3-legged OAuth requiring user redirection) or custom signature-based authentication often require custom Python tools.
--   **Multi-Step API Interactions:** If a task requires multiple API calls that depend on each other (e.g., fetch a list, then for each item, fetch details), this kind of complex chaining and logic is better handled by a custom Python tool.
--   **Complex Data Transformations:** If the API response needs significant transformation or processing before being useful to the LLM, a custom Python tool offers more flexibility.
--   **Real-time Streaming (SSE, WebSockets):** The tool is designed for request-response interactions, not for maintaining persistent streaming connections.
+**安全注意事项：**
 
-For scenarios that exceed these limitations, developing a [Custom Python Tool](/Tools/creating-a-tool) is the recommended approach.
+* **API 密钥：** 注意 API 密钥和其他敏感凭证。示例图片中直接在配置里显示了 API 密钥。对于生产环境或共享环境，应避免暴露包含敏感密钥的配置。
+    * **速率限制：** 注意所集成 API 的调用频率限制。来自 DocsGPT 的频繁调用可能会超出这些限制。
+    * **数据隐私：** 考虑将用户查询数据发送至第三方 API 时的数据隐私影响。
+
+-   **幂等性**：对于修改数据的工具（POST、PUT、DELETE），需注意 API 操作是否具有幂等性，以避免因 LLM 重试操作导致重复调用产生意外后果。
+
+## 局限性
+
+尽管功能强大，通用 API 工具仍存在一些限制：
+
+-   **复杂认证**：高级认证流程（如需要用户重定向的三方 OAuth 2.0 或基于自定义签名的认证）通常需要定制 Python 工具。
+-   **多步骤 API 交互**：若任务需要多个相互依赖的 API 调用（例如先获取列表，再逐项获取详情），这类复杂链式逻辑更适合通过定制 Python 工具处理。
+-   **复杂数据转换**：若 API 响应需经重大转换或处理才能被 LLM 使用，定制 Python 工具能提供更高灵活性。
+-   **实时流传输（SSE、WebSockets）**：该工具设计用于请求-响应交互，不支持维持持久流连接。
+
+若使用场景超出上述限制，建议开发[自定义 Python 工具](/Tools/creating-a-tool)。

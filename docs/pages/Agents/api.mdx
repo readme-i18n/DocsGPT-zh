@@ -1,50 +1,52 @@
 ---
-title: Interacting with Agents via API
-description: Learn how to programmatically interact with DocsGPT Agents using the streaming and non-streaming API endpoints.
+
+title: 通过 API 与智能体交互
+description: 了解如何使用流式和非流式 API 端点以编程方式与 DocsGPT 智能体进行交互。
 ---
 
 import { Callout, Tabs } from 'nextra/components';
 
-# Interacting with Agents via API
+# 通过 API 与智能体交互
 
-DocsGPT Agents can be accessed programmatically through a dedicated API, allowing you to integrate their specialized capabilities into your own applications, scripts, and workflows. This guide covers the two primary methods for interacting with an agent: the streaming API for real-time responses and the non-streaming API for a single, consolidated answer.
+DocsGPT 智能体可通过专用 API 以编程方式访问，使您能够将其专业化能力集成到自己的应用程序、脚本和工作流中。本指南介绍与智能体交互的两种主要方法：用于实时响应的流式 API 和用于获取单一整合答案的非流式 API。
 
-When you use an API key generated for a specific agent, you do not need to pass `prompt`, `tools` etc. The agent's configuration (including its prompt, selected tools, and knowledge sources) is already associated with its unique API key. 
+当您使用为特定智能体生成的 API 密钥时，无需传递 `prompt`、`tools` 等参数。智能体的配置（包括其提示词、选定工具和知识源）已与其唯一的 API 密钥关联。
 
-### API Endpoints
+### API 端点
 
-- **Non-Streaming:** `http://localhost:7091/api/answer`
-- **Streaming:** `http://localhost:7091/stream`
+- **非流式:** `http://localhost:7091/api/answer`
+- **流式:** `http://localhost:7091/stream`
 
 <Callout type="info">
-For DocsGPT Cloud, use `https://gptcloud.arc53.com/` as the base URL.
+对于 DocsGPT Cloud 服务，请使用 `https://gptcloud.arc53.com/` 作为基础 URL。
 </Callout>
 
-For more technical details, you can explore the API swagger documentation available for the cloud version or your local instance.
+如需更多技术细节，您可以查阅云端版本或本地实例提供的 API Swagger 文档。
 
 ---
 
-## Non-Streaming API (`/api/answer`)
+## 非流式 API (`/api/answer`)
 
-This is a standard synchronous endpoint. It waits for the agent to fully process the request and returns a single JSON object with the complete answer. This is the simplest method and is ideal for backend processes where a real-time feed is not required.
+这是一个标准的同步端点。它会等待代理完全处理请求后返回一个包含完整答案的单一JSON对象。这是最简单的方法，非常适合不需要实时数据推送的后端处理流程。
 
-### Request
+### 请求
 
--   **Endpoint:** `/api/answer`
--   **Method:** `POST`
--   **Payload:**
-    -   `question` (string, required): The user's query or input for the agent.
-    -   `api_key` (string, required): The unique API key for the agent you wish to interact with.
-    -   `history` (string, optional): A JSON string representing the conversation history, e.g., `[{\"prompt\": \"first question\", \"answer\": \"first answer\"}]`.
+-   **端点:** `/api/answer`
+-   **方法:** `POST`
+-   **载荷:**
+    -   `question` (字符串，必填): 用户向代理提出的查询或输入内容。
+    -   `api_key` (字符串，必填): 用于交互的代理唯一API密钥。
+    -   `history` (字符串，选填): 表示对话历史的JSON字符串，例如 `[{\"prompt\": \"第一个问题\", \"answer\": \"第一个回答\"}]`。
 
-### Response
+### 响应
 
-A single JSON object containing:
--   `answer`: The complete, final answer from the agent.
--   `sources`: A list of sources the agent consulted.
--   `conversation_id`: The unique ID for the interaction.
+包含以下内容的单一JSON对象：
 
-### Examples
+-   `answer`: 代理生成的完整最终答案。
+-   `sources`: 代理参考的资料来源列表。
+-   `conversation_id`: 该次交互的唯一标识符。
+
+### 示例
 
 <Tabs items={['cURL', 'Python', 'JavaScript']}>
   <Tabs.Tab>
@@ -111,29 +113,30 @@ A single JSON object containing:
 
 ---
 
-## Streaming API (`/stream`)
+## 流式API (`/stream`)
 
-The `/stream` endpoint uses Server-Sent Events (SSE) to push data in real-time. This is ideal for applications where you want to display the response as it's being generated, such as in a live chatbot interface.
+`/stream` 端点使用服务器发送事件(SSE)实现实时数据推送。这种模式非常适合需要动态展示生成过程的场景，例如实时聊天机器人界面。
 
-### Request
+### 请求
 
--   **Endpoint:** `/stream`
--   **Method:** `POST`
--   **Payload:** Same as the non-streaming API.
+-   **端点:** `/stream`
+-   **方法:** `POST`
+-   **载荷:** 与非流式API相同。
 
-### Response (SSE Stream)
+### 响应 (SSE流)
 
-The stream consists of multiple `data:` events, each containing a JSON object. Your client should listen for these events and process them based on their `type`.
+数据流由多个 `data:` 事件组成，每个事件包含一个 JSON 对象。客户端应监听这些事件并根据其 `type` 类型进行处理。
 
-**Event Types:**
--   `answer`: A chunk of the agent's final answer.
--   `source`: A document or source used by the agent.
--   `thought`: A reasoning step from the agent (for ReAct agents).
--   `id`: The unique `conversation_id` for the interaction.
--   `error`: An error message.
--   `end`: A final message indicating the stream has concluded.
+**事件类型:**
 
-### Examples
+-   `answer`: 智能体最终回答的一个片段。
+-   `source`: 智能体使用的文档或来源。
+-   `thought`: 智能体的推理步骤（适用于 ReAct 智能体）。
+-   `id`: 交互的唯一 `conversation_id` 标识符。
+-   `error`: 错误信息。
+-   `end`: 表示数据流结束的最终消息。
+
+### 示例
 
 <Tabs items={['cURL', 'Python', 'JavaScript']}>
   <Tabs.Tab>

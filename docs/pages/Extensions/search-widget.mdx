@@ -1,18 +1,20 @@
 ---
-title: Integrate DocsGPT Search Bar into Your Web Application
-description: Embed the DocsGPT Search Bar Widget in your React or HTML projects to provide AI-powered document search functionality to your users.
+
+title: 将 DocsGPT 搜索栏集成到您的 Web 应用程序
+description: 在 React 或 HTML 项目中嵌入 DocsGPT 搜索栏小部件，为用户提供 AI 驱动的文档搜索功能。
 ---
+
 import { Tabs } from 'nextra/components'
 
-# Integrating DocsGPT Search Bar Widget
+# 集成 DocsGPT 搜索栏小部件
 
-## Introduction
+## 项目说明
 
-The DocsGPT Search Bar Widget offers a simple yet powerful way to embed AI-powered document search directly into your web applications. This widget allows users to perform searches across your documents or pages, enabling them to quickly find the information they need. This guide will walk you through embedding the Search Bar Widget into your projects, whether you're using React or plain HTML.
+DocsGPT 搜索栏小部件提供了一种简单而强大的方式，将 AI 驱动的文档搜索直接嵌入到您的 Web 应用程序中。该小部件允许用户跨文档或页面执行搜索，帮助他们快速找到所需信息。本指南将引导您完成将搜索栏小部件嵌入项目的全过程，无论您使用的是 React 还是纯 HTML。
 
-Try out the interactive widget showcase and customize its parameters at the [DocsGPT Widget Demo](https://widget.docsgpt.cloud/).
+在 [DocsGPT Widget Demo](https://widget.docsgpt.cloud/) 上试用交互式小部件展示并自定义其参数。
 
-## Setup
+## 配置
 
 <Tabs items={['React', 'HTML']}>
   <Tabs.Tab>
@@ -90,27 +92,27 @@ Then, in a `<script type="module">` block, use the `renderSearchBar` function to
 
 ---
 
-## Properties Table
+## 属性表格
 
-The DocsGPT Search Bar Widget offers a range of customizable properties that allow you to tailor its appearance and behavior to perfectly match your web application. These parameters can be modified directly when embedding the widget in your React components or HTML code. Below is a detailed overview of each available prop:
+DocsGPT 搜索栏小部件提供了一系列可自定义属性，使您能够调整其外观和行为以完美匹配您的 Web 应用程序。这些参数可以在将小部件嵌入 React 组件或 HTML 代码时直接修改。以下是每个可用属性的详细概述：
 
-| **Prop**       | **Type**  | **Default Value**                   | **Description**                                                                                  |
+| **属性**       | **类型**  | **默认值**                   | **描述**                                                                                  |
 |-----------------|-----------|-------------------------------------|--------------------------------------------------------------------------------------------------|
-| **`apiKey`**    | `string`  | `"your-api-key"`                  | API key for authentication with your DocsGPT API. Leave empty if no authentication is required.                         |
-| **`apiHost`**   | `string`  | `"https://gptcloud.arc53.com"`       | **Required.** The URL of your DocsGPT API backend. This endpoint handles vector similarity search queries.           |
-| **`theme`**     | `"dark" \| "light"` | `"dark"`                            | Color theme of the search bar. Options: `"dark"` or `"light"`. Defaults to `"dark"`.                                     |
-| **`placeholder`** | `string` | `"Search or Ask AI..."`             | Placeholder text displayed in the search input field.                                           |
-| **`width`**     | `string`  | `"256px"`                          | Width of the search bar. Accepts any valid CSS width value (e.g., `"300px"`, `"100%"`, `"20rem"`). |
+| **`apiKey`**    | `string`  | `"your-api-key"`                  | 用于 DocsGPT API 身份验证的 API 密钥。如果不需要身份验证，请留空。                         |
+| **`apiHost`**   | `string`  | `"https://gptcloud.arc53.com"`       | **必填。** 你的 DocsGPT API 后端 URL。该端点处理向量相似性搜索查询。           |
+| **`theme`**     | `"dark" \| "light"` | `"dark"`                            | 搜索栏的颜色主题。可选值: `"dark"` 或 `"light"`。默认为 `"dark"`。                                     |
+| **`placeholder`** | `string` | `"Search or Ask AI..."`             | 搜索输入框中显示的占位文本。                                           |
+| **`width`**     | `string`  | `"256px"`                          | 搜索栏的宽度。接受任何有效的 CSS 宽度值 (例如 `"300px"`, `"100%"`, `"20rem"`)。 |
 
 ---
 
-## Notes on Widget Properties
+## 组件属性说明
 
-*   **Full Customization:** Every property listed in the table can be customized. Override the defaults to create a Search Bar Widget that perfectly matches your branding and application context.
-*   **API Key Handling:** The `apiKey` prop is optional. Only include it if your DocsGPT backend API is configured to require API key authentication. `apiHost` for DocsGPT Cloud is `https://gptcloud.arc53.com/`
+*   **完全自定义:** 表格中列出的所有属性均可自定义。覆盖默认值以创建与您的品牌和应用场景完美匹配的 Search Bar Widget。
+*   **API 密钥处理:** `apiKey` 属性为可选配置。仅当您的 DocsGPT 后端 API 需要密钥认证时才需填写。DocsGPT Cloud 的 `apiHost` 为 `https://gptcloud.arc53.com/`
 
-## Explore and Customize Further
+## 深入探索与定制
 
-The DocsGPT Search Bar Widget is fully open-source, allowing for deep customization and extension beyond the readily available props.
+DocsGPT Search Bar Widget 完全开源，支持超越现有属性的深度定制与扩展。
 
-The complete source code for the React-based widget is available in the `extensions/react-widget` directory within the main [DocsGPT GitHub Repository](https://github.com/arc53/DocsGPT). Feel free to explore the code, fork the repository, and tailor the widget to your exact requirements.
+基于 React 的组件完整源代码位于主仓库 [DocsGPT GitHub Repository](https://github.com/arc53/DocsGPT) 的 `extensions/react-widget` 目录中。欢迎查阅代码、分叉仓库并按需定制组件。

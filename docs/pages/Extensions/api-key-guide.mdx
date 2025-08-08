@@ -1,28 +1,29 @@
 ---
-title: API Keys for DocsGPT Integrations
-description: Learn how to obtain, understand, and use DocsGPT API keys to integrate DocsGPT into your external applications and widgets.
+
+title: DocsGPT 集成 API 密钥指南
+description: 了解如何获取、理解并使用 DocsGPT API 密钥，将其集成至您的外部应用和小部件中。
 ---
 
-# Guide to DocsGPT API Keys
+# DocsGPT API 密钥指南
 
-DocsGPT API keys are essential for developers and users who wish to integrate the  DocsGPT models into external applications, such as [our widget](/Extensions/chat-widget). This guide will walk you through the steps of obtaining an API key, starting from uploading your document to understanding the key variables associated with API keys.
+DocsGPT API 密钥对于希望将 DocsGPT 模型集成到外部应用（如[我们的聊天小部件](/Extensions/chat-widget)）的开发者和用户至关重要。本指南将带您完成从上传文档到理解 API 密钥相关变量的完整流程。
 
-## Obtaining Your API Key
+## 获取 API 密钥
 
-After uploading your document, you can obtain an API key either through the graphical user interface or via an API call:
+上传文档后，您可通过图形用户界面或 API 调用获取 API 密钥：
 
-- **Graphical User Interface:** Navigate to the Settings section of the DocsGPT web app, find the API Keys option, and press 'Create New' to generate your key.
-- **API Call:** Alternatively, you can use the `/api/create_api_key` endpoint to create a new API key. For detailed instructions, visit [DocsGPT API Documentation](https://gptcloud.arc53.com/).
+- **图形用户界面:** 进入 DocsGPT 网页应用的设置部分，找到 API 密钥选项，点击"创建新密钥"生成密钥。
+- **API 调用:** 您也可以使用 `/api/create_api_key` 端点创建新 API 密钥。详细说明请参阅 [DocsGPT API 文档](https://gptcloud.arc53.com/)。
 
-## Understanding Key Variables
+## 理解关键变量
 
-Upon creating your API key, you will encounter several key variables. Each serves a specific purpose:
+创建 API 密钥时，您会遇到几个关键变量，每个变量都有特定用途：
 
-- **Name:** Assign a name to your API key for easy identification.
-- **Source:** Indicates the source document(s) linked to your API key, which DocsGPT will use to generate responses.
-- **ID:** A unique identifier for your API key. You can view this by making a call to `/api/get_api_keys`.
-- **Key:** The API key itself, which will be used in your application to authenticate API requests.
+- **名称:** 为您的 API 密钥命名以便于识别。
+- **来源:** 指定与 API 密钥关联的源文档，DocsGPT 将基于这些文档生成响应。
+- **ID:** API 密钥的唯一标识符，可通过调用 `/api/get_api_keys` 接口查看。
+- **密钥:** API 密钥本身，将在您的应用程序中用于验证 API 请求。
 
-With your API key ready, you can now integrate DocsGPT into your application, such as the DocsGPT Widget or any other software, via `/api/answer` or `/stream` endpoints. The source document is preset with the API key, allowing you to bypass fields like `selectDocs` and `active_docs` during implementation.
+准备好 API 密钥后，您现在可以通过 `/api/answer` 或 `/stream` 端点将 DocsGPT 集成到应用程序中（例如 DocsGPT 小组件或其他软件）。源文档已预设于 API 密钥中，使您能在实现过程中跳过 `selectDocs` 和 `active_docs` 等字段。
 
-Congratulations on taking the first step towards enhancing your applications with DocsGPT!
+恭喜您迈出了使用 DocsGPT 增强应用程序功能的第一步！

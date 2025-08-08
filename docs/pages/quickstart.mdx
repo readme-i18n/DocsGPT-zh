@@ -1,40 +1,41 @@
 ---
-title: Quickstart - Launching DocsGPT Web App
-description: Get started with DocsGPT quickly by launching the web application using the setup script.
+
+title: 快速入门 - 启动 DocsGPT 网页应用
+description: 通过使用安装脚本快速启动网页应用，开始使用 DocsGPT。
 ---
 
-# Quickstart
+# 快速入门
 
-**Prerequisites:**
+**先决条件:**
 
-* **Docker:** Ensure you have Docker installed and running on your system.
+* **Docker:** 确保您的系统已安装并运行 Docker。
 
-## Launching DocsGPT (macOS and Linux)
+## 启动 DocsGPT (macOS 和 Linux)
 
-The easiest way to launch DocsGPT is using the provided `setup.sh` script. This script automates the configuration process and offers several setup options.
+启动 DocsGPT 最简单的方式是使用提供的 `setup.sh` 脚本。该脚本可自动完成配置流程并提供多种安装选项。
 
-**Steps:**
+**操作步骤:**
 
-1. **Download the DocsGPT Repository:**
+1. **下载 DocsGPT 仓库：**
 
-   First, you need to download the DocsGPT repository to your local machine. You can do this using Git:
+   首先，您需要将 DocsGPT 仓库下载到本地计算机。可以使用 Git 命令完成：
 
    ```bash
    git clone https://github.com/arc53/DocsGPT.git
    cd DocsGPT
    ```
 
-2. **Run the `setup.sh` script:**
+2. **运行 `setup.sh` 脚本：**
 
-   Navigate to the DocsGPT directory in your terminal and execute the `setup.sh` script:
+   在终端中进入 DocsGPT 目录，执行 `setup.sh` 脚本：
 
    ```bash
    ./setup.sh
    ```
 
-3. **Follow the interactive setup:**
+3. **跟随交互式设置向导：**
 
-   The `setup.sh` script will guide you through an interactive menu with the following options:
+   `setup.sh` 脚本会引导您完成交互式菜单，提供以下选项：
 
    ```
    Welcome to DocsGPT Setup!
@@ -46,74 +47,74 @@ The easiest way to launch DocsGPT is using the provided `setup.sh` script. This 
    Choose option (1-4):
    ```
 
-   Let's break down each option:
+   各选项说明如下：
 
-   * **1) Use DocsGPT Public API Endpoint (simple and free):**  This is the simplest option to get started. It utilizes the DocsGPT public API, requiring no API keys or local model downloads. Choose this for a quick and easy setup.
+   * **1) 使用 DocsGPT 公共 API 端点（简单免费）：** 这是最快捷的入门方式，无需 API 密钥或本地模型下载，直接调用 DocsGPT 公共 API。
 
-   * **2) Serve Local (with Ollama):** This option allows you to run a Large Language Model locally using [Ollama](https://ollama.com/).  You'll be prompted to choose between CPU or GPU for Ollama and select a model to download. This is a good option for local processing and experimentation.
+   * **2) 本地运行（通过 Ollama）：** 此选项允许使用 [Ollama](https://ollama.com/) 在本地运行大语言模型。系统会提示选择 CPU/GPU 运行模式并下载模型，适合本地处理和实验。
 
-   * **3) Connect Local Inference Engine:**  If you are already running a local inference engine like Llama.cpp, Text Generation Inference (TGI), vLLM, or others, choose this option.  You'll be asked to select your engine and provide the necessary connection details. This is for users with existing local LLM infrastructure.
+   * **3) 连接本地推理引擎：** 如果您已部署 Llama.cpp、Text Generation Inference (TGI)、vLLM 等本地推理引擎，选择此选项后需指定引擎类型并提供连接参数。
 
-   * **4) Connect Cloud API Provider:** This option lets you connect DocsGPT to a commercial Cloud API provider such as OpenAI, Google (Vertex AI/Gemini), Anthropic (Claude), Groq, HuggingFace Inference API, or Azure OpenAI. You will need an API key from your chosen provider. Select this if you prefer to use a powerful cloud-based LLM.
+   * **4) 连接云端 API 提供商：** 可对接 OpenAI、Google (Vertex AI/Gemini)、Anthropic (Claude)、Groq、HuggingFace Inference API 或 Azure OpenAI 等商业云 API，需提供对应平台的 API 密钥。
 
-   After selecting an option and providing any required information (like API keys or model names), the script will configure your `.env` file and start DocsGPT using Docker Compose.
+   完成选项配置（如提供 API 密钥或模型名称）后，脚本会自动生成 `.env` 文件并通过 Docker Compose 启动 DocsGPT。
 
-4. **Access DocsGPT in your browser:**
+4. **在浏览器中访问 DocsGPT：**
 
-   Once the setup is complete and Docker containers are running, navigate to [http://localhost:5173/](http://localhost:5173/) in your web browser to access the DocsGPT web application.
+   当 Docker 容器运行后，在浏览器中访问 [http://localhost:5173/](http://localhost:5173/) 即可使用 DocsGPT 网页应用。
 
-5. **Stopping DocsGPT:**
+5. **停止 DocsGPT 服务：**
 
-   To stop DocsGPT, simply open a new terminal in the `DocsGPT` directory and run:
+   在 `DocsGPT` 目录下执行以下命令即可停止服务：
 
    ```bash
    docker compose -f deployment/docker-compose.yaml down
    ```
-   (or the specific `docker compose` command shown at the end of the `setup.sh` execution, which may include optional compose files depending on your choices).
+   （或根据 `setup.sh` 执行结束时显示的特定 `docker compose` 命令，该命令可能包含您所选配置对应的附加 compose 文件）。
 
-## Launching DocsGPT (Windows)
+## 启动 DocsGPT (Windows 版)
 
-For Windows users, we provide a PowerShell script that offers the same functionality as the macOS/Linux setup script.
+针对 Windows 用户，我们提供了一个 PowerShell 脚本，其功能与 macOS/Linux 设置脚本相同。
 
-**Steps:**
+**操作步骤：**
 
-1. **Download the DocsGPT Repository:**
+1. **下载 DocsGPT 仓库：**
 
-   First, you need to download the DocsGPT repository to your local machine. You can do this using Git:
+   首先需要将 DocsGPT 仓库下载到本地计算机，可通过 Git 执行：
 
    ```powershell
    git clone https://github.com/arc53/DocsGPT.git
    cd DocsGPT
    ```
 
-2. **Run the `setup.ps1` script:**
+2. **运行 `setup.ps1` 脚本：**
 
-   Execute the PowerShell setup script:
+   执行 PowerShell 设置脚本：
 
    ```powershell
    PowerShell -ExecutionPolicy Bypass -File .\setup.ps1
    ```
 
-3. **Follow the interactive setup:**
+3. **跟随交互式设置向导：**
 
-   Just like the Linux/macOS script, the PowerShell script will guide you through setting DocsGPT.
-   The script will handle environment configuration and start DocsGPT based on your selections.
+   与 Linux/macOS 脚本类似，PowerShell 脚本会引导您完成 DocsGPT 的配置。
+   该脚本将处理环境配置并根据您的选择启动 DocsGPT。
 
-4. **Access DocsGPT in your browser:**
+4. **在浏览器中访问 DocsGPT：**
 
-   Once the setup is complete and Docker containers are running, navigate to [http://localhost:5173/](http://localhost:5173/) in your web browser to access the DocsGPT web application.
+   当设置完成且 Docker 容器运行后，在浏览器中访问 [http://localhost:5173/](http://localhost:5173/) 即可使用 DocsGPT 网页应用。
 
-5. **Stopping DocsGPT:**
+5. **停止 DocsGPT：**
 
-   To stop DocsGPT run the Docker Compose down command displayed at the end of the setup script's execution.
+   要停止 DocsGPT，请运行设置脚本执行结束时显示的 Docker Compose down 命令。
 
-**Important for Windows:** Ensure Docker Desktop is installed and running correctly on your Windows system before proceeding. The script will attempt to start Docker if it's not running, but you may need to start it manually if there are issues.
+**Windows 重要提示：** 请确保 Docker Desktop 已正确安装并在 Windows 系统上运行。脚本会尝试在 Docker 未运行时启动它，但若遇到问题可能需要手动启动。
 
-**Alternative Method:**
-If you prefer a more manual approach, you can follow our [Docker Deployment documentation](/Deploying/Docker-Deploying) for detailed instructions on setting up DocsGPT on Windows using Docker commands directly.
+**替代方法：**
+如果您倾向于更手动的方式，可以按照我们的 [Docker 部署文档](/Deploying/Docker-Deploying) 获取详细指南，了解如何直接在 Windows 上使用 Docker 命令设置 DocsGPT。
 
-## Advanced Configuration
+## 高级配置
 
-For more advanced customization of DocsGPT settings, such as configuring vector stores, embedding models, and other parameters, please refer to the [DocsGPT Settings documentation](/Deploying/DocsGPT-Settings). This guide explains how to modify the `.env` file or `settings.py` for deeper configuration.
+如需对 DocsGPT 设置进行更高级的自定义（例如配置向量存储、嵌入模型和其他参数），请参阅 [DocsGPT 设置文档](/Deploying/DocsGPT-Settings)。该指南解释了如何修改 `.env` 文件或 `settings.py` 以实现更深层次的配置。
 
-Enjoy using DocsGPT!
+祝您使用 DocsGPT 愉快！

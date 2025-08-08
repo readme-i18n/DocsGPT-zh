@@ -1,23 +1,24 @@
 ---
-title: DocsGPT Settings
-description: Configure your DocsGPT application by understanding the basic settings.
+
+title: DocsGPT 设置
+description: 通过了解基础配置来调整您的 DocsGPT 应用程序。
 ---
 
-# DocsGPT Settings
+# DocsGPT 设置
 
-DocsGPT is highly configurable, allowing you to tailor it to your specific needs and preferences. You can control various aspects of the application, from choosing the Large Language Model (LLM) provider to selecting embedding models and vector stores.
+DocsGPT 具有高度可配置性，您可以根据具体需求和偏好进行定制。从选择大语言模型(LLM)供应商到配置嵌入模型与向量存储，您可以控制应用的各个方面。
 
-This document will guide you through the basic settings you can configure in DocsGPT. These settings determine how DocsGPT interacts with LLMs and processes your data.
+本文档将指导您完成 DocsGPT 的基础配置选项。这些设置决定了 DocsGPT 如何与 LLM 交互并处理您的数据。
 
-## Configuration Methods
+## 配置方式
 
-There are two primary ways to configure DocsGPT settings:
+主要有两种配置 DocsGPT 设置的方法：
 
-### 1. Configuration via `.env` file (Recommended)
+### 1. 通过 `.env` 文件配置（推荐）
 
-The easiest and recommended way to configure basic settings is by using a `.env` file. This file should be located in the **root directory** of your DocsGPT project (the same directory where `setup.sh` is located).
+最简单且推荐的基础配置方式是使用 `.env` 文件。该文件应位于 DocsGPT 项目的**根目录**下（与 `setup.sh` 同级的目录）。
 
-**Example `.env` file structure:**
+**`.env` 文件示例结构：**
 
 ```
 LLM_PROVIDER=openai
@@ -25,53 +26,53 @@ API_KEY=YOUR_OPENAI_API_KEY
 LLM_NAME=gpt-4o
 ```
 
-### 2. Configuration via `settings.py` file (Advanced)
+### 2. 通过 `settings.py` 文件配置（高级）
 
-For more advanced configurations or if you prefer to manage settings directly in code, you can modify the `settings.py` file. This file is located in the `application/core` directory of your DocsGPT project.
+如需进行更高级的配置，或希望直接在代码中管理设置，您可以修改 `settings.py` 文件。该文件位于 DocsGPT 项目的 `application/core` 目录下。
 
-While modifying `settings.py` offers more flexibility, it's generally recommended to use the `.env` file for basic settings and reserve `settings.py` for more complex adjustments or when you need to configure settings programmatically.
+虽然修改 `settings.py` 提供了更高的灵活性，但通常建议将基础配置放在 `.env` 文件中，而将 `settings.py` 保留用于更复杂的调整或需要通过编程方式配置参数的场景。
 
-**Location of `settings.py`:** `application/core/settings.py`
+**`settings.py` 文件位置:** `application/core/settings.py`
 
-## Basic Settings Explained
+## 基础配置说明
 
-Here are some of the most fundamental settings you'll likely want to configure:
+以下是最可能需要配置的一些基础参数：
 
-- **`LLM_PROVIDER`**: This setting determines which Large Language Model (LLM) provider DocsGPT will use. It tells DocsGPT which API to interact with.
+- **`LLM_PROVIDER`**: 该配置决定 DocsGPT 使用哪家大型语言模型(LLM)提供商。它指示 DocsGPT 应与哪个 API 进行交互。
 
-  - **Common values:**
-    - `docsgpt`: Use the DocsGPT Public API Endpoint (simple and free, as offered in `setup.sh` option 1).
-    - `openai`: Use OpenAI's API (requires an API key).
-    - `google`: Use Google's Vertex AI or Gemini models.
-    - `anthropic`: Use Anthropic's Claude models.
-    - `groq`: Use Groq's models.
-    - `huggingface`: Use HuggingFace Inference API.
-    - `azure_openai`: Use Azure OpenAI Service.
-    - `openai` (when using local inference engines like Ollama, Llama.cpp, TGI, etc.): This signals DocsGPT to use an OpenAI-compatible API format, even if the actual LLM is running locally.
+  - **常用取值:**
+    - `docsgpt`: 使用 DocsGPT 公共 API 端点(简单免费，如 `setup.sh` 选项1提供)。
+    - `openai`: 使用 OpenAI 的 API(需提供 API 密钥)。
+    - `google`: 使用 Google 的 Vertex AI 或 Gemini 模型。
+    - `anthropic`: 使用 Anthropic 的 Claude 模型。
+    - `groq`: 使用 Groq 的模型。
+    - `huggingface`: 使用 HuggingFace 推理 API。
+    - `azure_openai`: 使用 Azure OpenAI 服务。
+    - `openai`(当使用 Ollama、Llama.cpp、TGI 等本地推理引擎时): 该配置让 DocsGPT 使用 OpenAI 兼容的 API 格式，即使实际运行的 LLM 是本地部署的。
 
-- **`LLM_NAME`**: Specifies the specific model to use from the chosen LLM provider. The available models depend on the `LLM_PROVIDER` you've selected.
+- **`LLM_NAME`**: 指定所选 LLM 提供商的具体模型名称。可用模型取决于您选择的 `LLM_PROVIDER`。
 
-  - **Examples:**
-    - For `LLM_PROVIDER=openai`: `gpt-4o`
-    - For `LLM_PROVIDER=google`: `gemini-2.0-flash`
-    - For local models (e.g., Ollama): `llama3.2:1b` (or any model name available in your setup).
+  - **示例:**
+    - 当 `LLM_PROVIDER=openai` 时: `gpt-4o`
+    - 当 `LLM_PROVIDER=google` 时: `gemini-2.0-flash`
+    - 对于本地模型(如 Ollama): `llama3.2:1b`(或您本地环境中可用的任意模型名称)。
 
-- **`EMBEDDINGS_NAME`**: This setting defines which embedding model DocsGPT will use to generate vector embeddings for your documents. Embeddings are numerical representations of text that allow DocsGPT to understand the semantic meaning of your documents for efficient search and retrieval.
+- **`EMBEDDINGS_NAME`**: 该配置定义 DocsGPT 将使用哪个嵌入模型来为文档生成向量嵌入。嵌入是对文本的数值化表示，使 DocsGPT 能理解文档的语义含义以实现高效搜索和检索。
 
-  - **Default value:** `huggingface_sentence-transformers/all-mpnet-base-v2` (a good general-purpose embedding model).
-  - **Other options:** You can explore other embedding models from Hugging Face Sentence Transformers or other providers if needed.
+  - **默认值:** `huggingface_sentence-transformers/all-mpnet-base-v2`(一个优秀的通用嵌入模型)。
+  - **其他选项:** 如需使用，可探索 Hugging Face Sentence Transformers 或其他提供商的其他嵌入模型。
 
-- **`API_KEY`**: Required for most cloud-based LLM providers. This is your authentication key to access the LLM provider's API. You'll need to obtain this key from your chosen provider's platform.
+- **`API_KEY`**: 大多数云端 LLM 提供商需要此配置。这是访问 LLM 提供商 API 的身份验证密钥，需从所选提供商的平台获取。
 
-- **`OPENAI_BASE_URL`**: Specifically used when `LLM_PROVIDER` is set to `openai` but you are connecting to a local inference engine (like Ollama, Llama.cpp, etc.) that exposes an OpenAI-compatible API. This setting tells DocsGPT where to find your local LLM server.
+- **`OPENAI_BASE_URL`**: 当 `LLM_PROVIDER` 设为 `openai` 但连接的是本地推理引擎(如 Ollama、Llama.cpp 等)且该引擎暴露了 OpenAI 兼容的 API 时专用。该配置告知 DocsGPT 本地 LLM 服务器的位置。
 
-## Configuration Examples
+## 配置示例
 
-Let's look at some concrete examples of how to configure these settings in your `.env` file.
+让我们通过具体示例来看看如何在 `.env` 文件中配置这些设置。
 
-### Example for Cloud API Provider (OpenAI)
+### 云 API 服务商示例 (OpenAI)
 
-To use OpenAI's `gpt-4o` model, you would configure your `.env` file like this:
+要使用 OpenAI 的 `gpt-4o` 模型，你的 `.env` 文件应配置如下：
 
 ```
 LLM_PROVIDER=openai
@@ -79,11 +80,11 @@ API_KEY=YOUR_OPENAI_API_KEY  # Replace with your actual OpenAI API key
 LLM_NAME=gpt-4o
 ```
 
-Make sure to replace `YOUR_OPENAI_API_KEY` with your actual OpenAI API key.
+请确保将 `YOUR_OPENAI_API_KEY` 替换为实际的 OpenAI API 密钥。
 
-### Example for Local Deployment
+### 本地部署示例
 
-To use a local Ollama server with the `llama3.2:1b` model, you would configure your `.env` file like this:
+若要在本地 Ollama 服务器上使用 `llama3.2:1b` 模型，你的 `.env` 文件应配置如下：
 
 ```
 LLM_PROVIDER=openai # Using OpenAI compatible API format for local models
@@ -93,25 +94,25 @@ OPENAI_BASE_URL=http://host.docker.internal:11434/v1 # Default Ollama API URL wi
 EMBEDDINGS_NAME=huggingface_sentence-transformers/all-mpnet-base-v2 # You can also run embeddings locally if needed
 ```
 
-In this case, even though you are using Ollama locally, `LLM_PROVIDER` is set to `openai` because Ollama (and many other local inference engines) are designed to be API-compatible with OpenAI. `OPENAI_BASE_URL` points DocsGPT to the local Ollama server.
+这种情况下，虽然使用本地 Ollama 服务，但 `LLM_PROVIDER` 仍需设置为 `openai`，因为 Ollama（以及许多其他本地推理引擎）设计为与 OpenAI API 兼容。`OPENAI_BASE_URL` 将引导 DocsGPT 连接至本地 Ollama 服务器。
 
-## Authentication Settings
+## 认证设置
 
-DocsGPT includes a JWT (JSON Web Token) based authentication feature for managing sessions or securing local deployments while allowing access.
+DocsGPT 内置基于 JWT (JSON Web Token) 的认证功能，可用于管理会话或在允许访问的同时保护本地部署。
 
-### `AUTH_TYPE` Overview
+### `AUTH_TYPE` 概览
 
-The `AUTH_TYPE` setting in your `.env` file or `settings.py` determines the authentication method used by DocsGPT. This allows you to control how users authenticate with your DocsGPT instance.
+在 `.env` 文件或 `settings.py` 中配置的 `AUTH_TYPE` 决定了 DocsGPT 使用的认证方式，通过该设置可控制用户如何访问你的 DocsGPT 实例。
 
-| Value         | Description                                                                                 |
-| ------------- | ------------------------------------------------------------------------------------------- |
-| `None`        | No authentication is used. Anyone can access the app.                                       |
-| `simple_jwt`  | A single, long-lived JWT token is generated at startup. All requests use this shared token. |
-| `session_jwt` | Unique JWT tokens are generated for each session/user.                                      |
+| 值            | 描述                                                                                     |
+| ------------- | --------------------------------------------------------------------------------------- |
+| `None`        | 不使用任何认证机制。任何人都可以访问应用。                                               |
+| `simple_jwt`  | 在启动时生成一个长期有效的JWT令牌。所有请求都使用这个共享令牌。                          |
+| `session_jwt` | 为每个会话/用户生成唯一的JWT令牌。                                                       |
 
-#### How to Configure
+#### 配置方法
 
-Add the following to your `.env` file (or set in `settings.py`):
+在 `.env` 文件中添加以下配置（或在 `settings.py` 中设置）：
 
 ```env
 # No authentication (default)
@@ -126,37 +127,37 @@ AUTH_TYPE=session_jwt
 JWT_SECRET_KEY=your_secret_key_here
 ```
 
-- If `AUTH_TYPE` is set to `simple_jwt` or `session_jwt`, a `JWT_SECRET_KEY` is required.
-- If `JWT_SECRET_KEY` is not set, DocsGPT will generate one and store it in `.jwt_secret_key` in the project root.
+- 若 `AUTH_TYPE` 设为 `simple_jwt` 或 `session_jwt`，则必须配置 `JWT_SECRET_KEY`。
+- 若未设置 `JWT_SECRET_KEY`，DocsGPT 会自动生成并存储在项目根目录的 `.jwt_secret_key` 文件中。
 
-#### How Each Method Works
+#### 各认证方式工作原理
 
-- **None**: No authentication. All API and UI access is open.
+- **None**: 无认证。所有API和UI访问完全开放。
 - **simple_jwt**:
-  - A single JWT token is generated at startup and printed to the console.
-  - Use this token in the `Authorization` header for all API requests:
+  - 启动时生成单一JWT令牌并输出到控制台。
+  - 在所有API请求的 `Authorization` 头部使用该令牌：
     ```http
     Authorization: Bearer <SIMPLE_JWT_TOKEN>
     ```
-  - The frontend will prompt for this token if not already set.
+  - 前端会在未设置令牌时提示输入。
 - **session_jwt**:
-  - Clients can request a new token from `/api/generate_token`.
-  - Use the received token in the `Authorization` header for subsequent requests.
-  - Each user/session gets a unique token.
+  - 客户端可从 `/api/generate_token` 端点请求新令牌。
+  - 在后续请求的 `Authorization` 头部使用获取的令牌。
+  - 每个用户/会话都会获得唯一令牌。
 
-#### Security Notes
+#### 安全注意事项
 
-- Always keep your `JWT_SECRET_KEY` secure and private.
-- If you set it manually, use a strong, random string.
-- If not set, DocsGPT will generate a secure key and persist it in `.jwt_secret_key`.
+- 始终确保 `JWT_SECRET_KEY` 的安全性和私密性
+- 如需手动设置，请使用高强度随机字符串
+- 若未设置，DocsGPT 将自动生成安全密钥并存储于 `.jwt_secret_key` 文件中
 
-#### Checking Current Auth Type
+#### 检查当前认证类型
 
-- Use the `/api/config` endpoint to check the current `auth_type` and whether authentication is required.
+- 通过 `/api/config` 接口可查询当前 `auth_type` 配置及是否启用认证
 
-#### Frontend Token Input for `simple_jwt`
+#### 前端令牌输入（simple_jwt 模式）
 
-If you have configured `AUTH_TYPE=simple_jwt`, the DocsGPT frontend will prompt you to enter the JWT token if it's not already set or is invalid. Paste the `SIMPLE_JWT_TOKEN` (printed to your console when the backend starts) into this field to access the application.
+当配置 `AUTH_TYPE=simple_jwt` 时，若未设置或令牌无效，DocsGPT 前端将提示输入 JWT 令牌。请将后端启动时控制台输出的 `SIMPLE_JWT_TOKEN` 粘贴至该字段以访问应用。
 
 <img
   src="/jwt-input.png"
@@ -169,13 +170,13 @@ If you have configured `AUTH_TYPE=simple_jwt`, the DocsGPT frontend will prompt 
   }}
 />
 
-## Exploring More Settings
+## 探索更多设置
 
-These are just the basic settings to get you started. The `settings.py` file contains many more advanced options that you can explore to further customize DocsGPT, such as:
+以上仅为基础配置，`settings.py` 文件中还包含众多高级选项可供定制：
 
-- Vector store configuration (`VECTOR_STORE`, Qdrant, Milvus, LanceDB settings)
-- Retriever settings (`RETRIEVERS_ENABLED`)
-- Cache settings (`CACHE_REDIS_URL`)
-- And many more!
+- 向量存储配置（`VECTOR_STORE`、Qdrant、Milvus、LanceDB 相关设置）
+- 检索器设置（`RETRIEVERS_ENABLED`）
+- 缓存配置（`CACHE_REDIS_URL`）
+- 以及其他多项功能！
 
-For a complete list of available settings and their descriptions, refer to the `settings.py` file in `application/core`. Remember to restart your Docker containers after making changes to your `.env` file or `settings.py` for the changes to take effect.
+完整配置项及其说明请参阅 `application/core` 目录下的 `settings.py` 文件。请注意修改 `.env` 或 `settings.py` 后需重启 Docker 容器使变更生效。

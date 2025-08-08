@@ -1,33 +1,34 @@
 ---
-title: Tools Basics - Enhancing DocsGPT Capabilities
-description: Understand what DocsGPT Tools are, how they work, and explore the built-in tools available to extend DocsGPT's functionality.
+
+title: 工具基础 - 增强 DocsGPT 功能
+description: 了解 DocsGPT 工具的定义、工作原理，并探索可用的内置工具以扩展 DocsGPT 的功能。
 ---
 
 import { Callout } from 'nextra/components';
 import Image from 'next/image';
 import { ToolCards } from '../../components/ToolCards';
 
-# Understanding DocsGPT Tools
+# 理解 DocsGPT 工具
 
-DocsGPT Tools are powerful extensions that significantly enhance the capabilities of your DocsGPT application. 
-They allow DocsGPT to move beyond its core function of retrieving information from your documents and enable it to perform actions, 
-interact with external data sources, and integrate with other services. You can find and configure available tools within 
-the "Tools" section of the DocsGPT application settings in the user interface.
+DocsGPT 工具是强大的扩展功能，能显著增强您的 DocsGPT 应用能力。
+它们使 DocsGPT 突破从文档检索信息的核心功能，能够执行操作、
+与外部数据源交互并与其他服务集成。您可以在用户界面的 DocsGPT 应用设置中
+"工具"部分查找并配置可用工具。
 
-## What are Tools?
+## 什么是工具？
 
--   **Purpose:** The primary purpose of Tools is to bridge the gap between understanding a user's request (natural language processing by the LLM) and executing a tangible action. This could involve fetching live data from the web, sending notifications, running code snippets, querying databases, or interacting with third-party APIs.
+-   **目的：** Tools 的主要作用是在理解用户请求（由 LLM 进行自然语言处理）与执行具体操作之间建立桥梁。这可能涉及从网络获取实时数据、发送通知、运行代码片段、查询数据库或与第三方 API 交互。
 
--   **LLM as an Orchestrator:** The Large Language Model (LLM) at the heart of DocsGPT is designed to act as an intelligent orchestrator. Based on your query and the declared capabilities of the available tools (defined in their metadata), the LLM decides if a tool is needed, which tool to use, and what parameters to pass to it.
+-   **LLM 作为协调器：** DocsGPT 核心的大型语言模型（LLM）被设计为智能协调器。根据您的查询和可用工具（在其元数据中定义）的声明能力，LLM 决定是否需要使用工具、选择哪个工具以及传递哪些参数。
 
--   **Action-Oriented Interactions:** Tools enable more dynamic and action-oriented interactions. For example:
-    * *"What's the latest news on renewable energy?"* - This might trigger a web search tool to fetch current articles.
-    * *"Fetch the order status for customer ID 12345 from our database."* - This could use a database tool.
-    * *"Summarize the content of this webpage and send the summary to the #general channel on Telegram."* - This might involve a web scraping tool followed by a Telegram notification tool.
+-   **面向行动的交互：** Tools 支持更动态且面向行动的交互。例如：
+    * *"可再生能源的最新消息是什么？"* - 这可能会触发网络搜索工具获取最新文章。
+    * *"从我们的数据库中获取客户 ID 12345 的订单状态。"* - 这可以使用数据库工具。
+    * *"总结此网页内容并将摘要发送到 Telegram 的 #general 频道。"* - 这可能涉及网页抓取工具和 Telegram 通知工具的组合使用。
 
-## Overview of Built-in Tools
+## 内置工具概览
 
-DocsGPT includes a suite of pre-built tools designed to expand its capabilities out-of-the-box. Below is an overview of the currently available tools. 
+DocsGPT 包含一套预构建工具，旨在开箱即用地扩展其功能。以下是当前可用工具的概述。
 
 <ToolCards
   items={[
@@ -69,24 +70,24 @@ DocsGPT includes a suite of pre-built tools designed to expand its capabilities 
   ]}
 />
 
-## Using Tools in DocsGPT (User Perspective)
+## 在 DocsGPT 中使用工具（用户视角）
 
-Interacting with tools in DocsGPT is designed to be intuitive:
+在 DocsGPT 中与工具交互的设计遵循直观原则：
 
-1.  **Natural Language Interaction:** As a user, you typically interact with DocsGPT using natural language queries or commands. The LLM within DocsGPT analyzes your input to determine if a specific task can or should be handled by one of the available and configured tools.
+1.  **自然语言交互：** 作为用户，您通常通过自然语言查询或命令与 DocsGPT 交互。内置的 LLM 会分析输入内容，判断是否应由某个已配置的可用工具处理特定任务。
 
-2.  **Configuration in UI:**
-    * Tools are generally managed and configured within the DocsGPT application's settings, found under a "Tools" section in the GUI.
-    * For tools that interact with external services (like Brave Search, Telegram, or any service via the API Tool), you might need to provide authentication credentials (e.g., API keys, tokens) or specific endpoint information during the tool's setup in the UI.
+2.  **界面配置：**
+    * 工具通常在 DocsGPT 应用设置的 "Tools" 版块中进行管理和配置
+    * 对于需要与外部服务交互的工具（如 Brave Search、Telegram 或通过 API 工具连接的服务），您可能需要在界面设置时提供认证凭证（如 API 密钥、令牌）或特定端点信息
 
-3.  **Prompt Engineering for Tools:** While the LLM aims to intelligently use tools, for more complex or reliable agent-like behaviors, you might need to customize the system prompts. Modifying the prompt can guide the LLM on when and how to prioritize or chain tools to achieve specific outcomes, especially if you're building an agent designed to perform a certain sequence of actions every time. For more on this, see [Customising Prompts](/Guides/Customising-prompts).
+3.  **工具提示工程：** 虽然 LLM 会智能调用工具，但若要实现更复杂或可靠的类智能体行为，您可能需要定制系统提示。修改提示词可指导 LLM 何时以及如何优先使用或串联工具，特别是在构建需要固定执行动作序列的智能体时。详见[自定义提示词](/Guides/Customising-prompts)
 
-## Advancing with Tools
+## 工具进阶
 
-Understanding the basics of DocsGPT Tools opens up many possibilities:
+掌握 DocsGPT 工具的基础知识将开启更多可能性：
 
-* **Leverage the API Tool:** For quick integrations with numerous external services, explore the [API Tool Detailed Guide](/Tools/api-tool).
-* **Develop Custom Tools:** If you have specific needs not covered by built-in tools or the generic API tool, you can develop your own. See our guide on `[Developing Custom Tools](/Tools/creating-a-tool)` (placeholder for now).
-* **Build AI Agents:** Tools are the fundamental building blocks for creating sophisticated AI agents within DocsGPT. Explore how these can be combined by looking into the `[Agents section/tab concept - link to be added once available]`.
+* **利用 API 工具**：如需快速集成大量外部服务，请查阅 [API 工具详细指南](/Tools/api-tool)
+* **开发自定义工具**：若内置工具或通用 API 工具无法满足特定需求，您可以自行开发工具。参考我们的指南 `[开发自定义工具](/Tools/creating-a-tool)`（当前为占位链接）
+* **构建 AI 智能体**：工具是 DocsGPT 中创建复杂 AI 智能体的基础构建模块。通过查看 `[智能体章节/标签概念 - 链接待补充]` 了解如何组合这些工具
 
-By harnessing the power of Tools, you can transform DocsGPT into a more versatile and proactive assistant tailored to your unique workflows.
+通过善用工具的强大功能，您可以将 DocsGPT 转变为更灵活、更主动的助手，完美适配您独特的工作流程

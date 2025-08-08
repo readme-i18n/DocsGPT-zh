@@ -1,89 +1,50 @@
 ---
-title: Hosting DocsGPT on Railway
-description: Learn how to deploy your own DocsGPT instance on Railway with this step-by-step tutorial
+
+title: 在 Railway 上托管 DocsGPT
+description: 通过本分步教程学习如何在 Railway 上部署您自己的 DocsGPT 实例
 ---
 
-# Self-hosting DocsGPT on Railway
+# 在 Railway 上自托管 DocsGPT
 
-  
+以下是关于如何在 Railway App 上托管 DocsGPT 的逐步指南。
 
-Here's a step-by-step guide on how to host DocsGPT on Railway App.
+首先克隆并在本地设置项目以运行、测试和修改。
 
-  
+### 1. 克隆与 GitHub 设置
 
-At first Clone and set up the project locally to run , test and Modify.
+a. 打开终端（Windows Shell 或 Git bash（推荐））。
 
-  
+b. 输入 `git clone https://github.com/arc53/DocsGPT.git`
 
-### 1. Clone and GitHub SetUp
+#### 下载包信息
 
-a. Open Terminal (Windows Shell or Git bash(recommended)).
-
-  
-
-b. Type `git clone https://github.com/arc53/DocsGPT.git`
-
-  
-
-#### Download the package information
-
-  
-
-Once it has finished cloning the repository, it is time to download the package information from all sources. To do so, simply enter the following command:
-
-  
+克隆仓库完成后，需要从所有源下载包信息。为此，只需输入以下命令：
 
 `sudo apt update`
 
-  
+#### 安装 Docker 和 Docker Compose
 
-#### Install Docker and Docker Compose
-
-  
-
-DocsGPT backend and worker use Python, Frontend is written on React and the whole application is containerized using Docker. To install Docker and Docker Compose, enter the following commands:
-
-  
+DocsGPT 后端和 worker 使用 Python，前端基于 React 编写，整个应用通过 Docker 容器化。要安装 Docker 和 Docker Compose，输入以下命令：
 
 `sudo apt install docker.io`
 
-  
-
-And now install docker-compose:
-
-  
+现在安装 docker-compose：
 
 `sudo apt install docker-compose`
 
-  
+#### 进入 DocsGPT 文件夹
 
-#### Access the DocsGPT Folder
-
-  
-
-Enter the following command to access the folder in which the DocsGPT docker-compose file is present.
-
-  
+输入以下命令进入包含 DocsGPT docker-compose 文件的文件夹。
 
 `cd DocsGPT/`
 
-  
+#### 准备环境
 
-#### Prepare the Environment
-
-  
-
-Inside the DocsGPT folder create a `.env` file and copy the contents of `.env_sample` into it.
-
-  
+在 DocsGPT 文件夹内创建 `.env` 文件，并将 `.env_sample` 的内容复制到其中。
 
 `nano .env`
 
-  
-
-Make sure your `.env` file looks like this:
-
-  
+请确保你的 `.env` 文件内容如下：
 
 ```
 
@@ -95,164 +56,86 @@ SELF_HOSTED_MODEL=false
 
 ```
 
-  
+保存文件时，按 CTRL+X，然后按 Y，最后按 ENTER。
 
-To save the file, press CTRL+X, then Y, and then ENTER.
-
-  
-
-Next, set the correct IP for the Backend by opening the docker-compose.yaml file:
-
-  
+接下来，通过打开 docker-compose.yaml 文件设置正确的后端 IP：
 
 `nano deployment/docker-compose.yaml`
 
-  
+并将第 7 行修改为：`VITE_API_HOST=http://localhost:7091`
 
-And Change line 7 to: `VITE_API_HOST=http://localhost:7091`
+改为 `VITE_API_HOST=http://<你的实例公网IP>:7091`
 
-to this `VITE_API_HOST=http://<your instance public IP>:7091`
+这将允许前端连接到后端。
 
-  
+#### 运行应用程序
 
-This will allow the frontend to connect to the backend.
-
-  
-
-#### Running the Application
-
-  
-
-You're almost there! Now that all the necessary bits and pieces have been installed, it is time to run the application. To do so, use the following command:
-
-  
+即将完成！现在所有必要的组件都已安装，是时候运行应用程序了。使用以下命令：
 
 `sudo docker compose -f deployment/docker-compose.yaml up -d`
 
-  
+首次启动需要几分钟时间来下载所有必要的依赖项并进行构建。
 
-Launching it for the first time will take a few minutes to download all the necessary dependencies and build.
+完成后，你可以关闭终端窗口。
 
-  
+### 2. 推送到你自己的代码仓库
 
-Once this is done you can go ahead and close the terminal window.
+a. 在你的 GitHub 上创建一个仓库。
 
-  
+b. 在克隆项目的同一目录下打开终端。
 
-### 2. Pushing it to your own Repository
-
-  
-
-a. Create a Repository on your GitHub.
-
-  
-
-b. Open Terminal in the same directory of the Cloned project.
-
-  
-
-c. Type `git init`
-
-  
+c. 输入 `git init`
 
 d. `git add .`
 
-  
-
 e. `git commit -m "first-commit"`
 
-  
-
-f. `git remote add origin <your  repository  link>`
-
-  
+f. `git remote add origin <你的仓库链接>`
 
 g. `git push git push --set-upstream origin master`
 
-Your local files will now be pushed to your GitHub Account. :)
-  
+现在你的本地文件将被推送到 GitHub 账户。 :)
 
-### 3. Create a Railway Account:
+### 3. 创建 Railway 账户：
 
-  
+如果尚未操作，请访问 [Railway](https://railway.app/) 创建或登录您的 Railway 账户
 
-If you haven't already, create or log in to your railway account do it by visiting [Railway](https://railway.app/)
+通过 **GitHub** 注册 [推荐方式]
 
-  
+### 4. 新建项目:
 
-Signup via **GitHub** [Recommended].
+a. 打开 Railway 应用并点击 "Start New Project"
 
-  
+b. 从可选列表中选择任一方式 (推荐选择 "**Deploy from GitHub Repo**")
 
-### 4. Start New Project:
+c. 从您的 GitHub 中选择所需仓库
 
-  
+d. 在弹出窗口中配置并允许修改 GitHub 内容的权限
 
-a. Open Railway app and Click on "Start New Project."
+e. 同意所有条款与条件
 
-  
+注：账户设置可能需要数分钟完成
 
-b. Choose any from the list of options available (Recommended "**Deploy from GitHub Repo**")
+#### 您将获得 $5 免费试用额度 (可用于测试，满意后再按需购买)
 
-  
+### 5. 将 Railway 应用连接至 GitHub
 
-c. Choose the required Repository from your GitHub.
+a. 从 GitHub 仓库列表中选择要立即部署的 DocsGPT 仓库
 
-  
+b. 点击 "Deploy now"
 
-d. Configure and allow access to modify your GitHub content from the pop-up window.
+![将显示三个选项卡](/Railway-selection.png)
 
-  
+c. 选择 Variables 选项卡
 
-e. Agree to all the terms and conditions.
+d. 上传本地设置时使用的 env 文件
 
-  
+e. 现在转到 Settings 选项卡
 
-PS: It may take a few minutes for the account setup to complete.
+f. 进入 "Networking" 并点击 Generate Domain Name 获取项目托管 URL
 
-  
+g. 可根据需要更新根目录、构建命令和安装命令
 
-#### You will get A free trial of $5 (use it for trial and then purchase if satisfied and needed)
+*[若非必要，建议保持这些选项为默认值]*
 
-  
-
-### 5. Connecting to Your newly Railway app with GitHub
-
-  
-
-a. Choose DocsGPT repo from the list of your GitHub repository that you want to deploy now.
-
-  
-
-b. Click on Deploy now.
-
-  
-
-![Three Tabs will be there](/Railway-selection.png)
-
-  
-
-c. Select Variables Tab.
-
-  
-
-d. Upload the env file here that you used for local setup.
-
-  
-
-e. Go to Settings Tab now.
-
-  
-
-f. Go to "Networking" and click on Generate Domain Name, to get the URL of your hosted project.
-
-  
-
-g. You can update the Root directory, build command, installation command as per need.
-
-*[However recommended not the disturb these options and leave them as default if not that needed.]*
-
-  
-  
-
-Your own DocsGPT is now available at the Generated domain URl. :)
+您自己的 DocsGPT 现已可在生成的域名 URL 上使用。 :)

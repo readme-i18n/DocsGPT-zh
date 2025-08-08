@@ -1,18 +1,21 @@
 ---
-title: Integrate DocsGPT Chat Widget into Your Web Application
-description: Embed the DocsGPT Widget in your React, HTML, or Nextra projects to provide AI-powered chat functionality to your users.
+
+title: 将 DocsGPT 聊天组件集成到您的 Web 应用中
+description: 在您的 React、HTML 或 Nextra 项目中嵌入 DocsGPT 组件，为用户提供 AI 驱动的聊天功能。
 ---
+
 import { Tabs } from 'nextra/components'
 
-# Integrating DocsGPT Chat Widget
+# 集成 DocsGPT 聊天组件
 
-## Introduction
+## 项目说明
 
-The DocsGPT Widget is a powerful tool that allows you to integrate AI-driven document assistance directly into your web applications.  This guide will walk you through embedding the DocsGPT Widget into your projects, whether you're using React, plain HTML, or Nextra.  Enhance your user experience by providing seamless access to intelligent document search and chatbot capabilities.
+DocsGPT 组件是一个强大的工具，可让您将 AI 驱动的文档辅助功能直接集成到 Web 应用中。本指南将带您了解如何将 DocsGPT 组件嵌入到您的项目中，无论您使用的是 React、原生 HTML 还是 Nextra。通过提供智能文档搜索和聊天机器人功能的无缝访问，提升用户体验。
 
-Try out the interactive widget showcase and customize its parameters at the [DocsGPT Widget Demo](https://widget.docsgpt.cloud/).
+您可以在 [DocsGPT 组件演示](https://widget.docsgpt.cloud/) 中试用交互式组件展示并自定义其参数。
 
-## Setup
+## 配置
+
 <Tabs items={['React', 'HTML', 'Nextra']}>
   <Tabs.Tab>
 
@@ -126,34 +129,34 @@ export default function MyApp({ Component, pageProps }) {
 
 ---
 
-## Properties Table
+## 属性参数表
 
-The DocsGPT Widget offers a range of customizable properties that allow you to tailor its appearance and behavior to perfectly match your web application. These parameters can be modified directly when embedding the widget in your React components or HTML code.  Below is a detailed overview of each available prop:
+DocsGPT 组件提供了一系列可自定义属性，使您能够调整其外观和行为以完美匹配您的 Web 应用。这些参数可以在将组件嵌入到 React 组件或 HTML 代码时直接修改。以下是每个可用属性的详细说明：
 
-| **Prop**          | **Type**         | **Default Value**                                           | **Description**                                                                                     |
+| **属性**          | **类型**         | **默认值**                                           | **描述**                                                                                     |
 |--------------------|------------------|-------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
-| **`apiHost`**      | `string`         | `"https://gptcloud.arc53.com"`                                     | **Required.** The URL of your DocsGPT API backend. This endpoint handles vector search and chatbot queries. |
-| **`apiKey`**       | `string`         | `"your-api-key"`                                            | API key for authentication with your DocsGPT API. Leave empty if no authentication is required.       |
-| **`avatar`**       | `string`         | [`dino-icon-link`](https://d3dg1063dc54p9.cloudfront.net/cute-docsgpt.png)   | URL for the avatar image displayed in the chatbot interface.                                         |
-| **`title`**        | `string`         | `"Get AI assistance"`                                       | Title text shown in the chatbot header.                                                              |
-| **`description`**  | `string`         | `"DocsGPT's AI Chatbot is here to help"`                     | Sub-title or descriptive text displayed below the title in the chatbot header.                       |
-| **`heroTitle`**    | `string`         | `"Welcome to DocsGPT !"`                                    | Welcome message displayed when the chatbot is initially opened.                                     |
-| **`heroDescription`** | `string`     | `"This chatbot is built with DocsGPT and utilises GenAI, please review important information using sources."` | Introductory text providing context or disclaimers about the chatbot.                                 |
-| **`theme`**        | `"dark" \| "light"` | `"dark"`                                                  | Color theme of the widget interface. Options: `"dark"` or `"light"`. Defaults to `"dark"`.         |
-| **`buttonIcon`**   | `string`         | `"https://your-icon"`                                        | URL for the icon image used in the widget's launch button.                                          |
-| **`buttonBg`**     | `string`         | `"#222327"`                                                 | Background color of the widget's launch button.                                                      |
-| **`size`**         | `"small" \| "medium"` | `"medium"`                                              | Size of the widget. Options: `"small"` or `"medium"`. Defaults to `"medium"`.                         |
-| **`showSources`**         | `boolean` | `false`                                              | Enables displaying source URLs for data fetched within the widget. When set to `true`, the widget will show the original sources of the fetched data.                         |
+| **`apiHost`**      | `string`         | `"https://gptcloud.arc53.com"`                                     | **必填项。** 您的 DocsGPT API 后端 URL。该端点处理向量搜索和聊天机器人查询。 |
+| **`apiKey`**       | `string`         | `"your-api-key"`                                            | 用于 DocsGPT API 身份验证的 API 密钥。如果不需要身份验证，请留空。       |
+| **`avatar`**       | `string`         | [`dino-icon-link`](https://d3dg1063dc54p9.cloudfront.net/cute-docsgpt.png)   | 聊天机器人界面中显示的头像图片 URL。                                         |
+| **`title`**        | `string`         | `"Get AI assistance"`                                       | 聊天机器人标题栏中显示的标题文本。                                                              |
+| **`description`**  | `string`         | `"DocsGPT's AI Chatbot is here to help"`                     | 聊天机器人标题栏中标题下方显示的子标题或描述性文本。                       |
+| **`heroTitle`**    | `string`         | `"Welcome to DocsGPT !"`                                    | 首次打开聊天机器人时显示的欢迎信息。                                     |
+| **`heroDescription`** | `string`     | `"This chatbot is built with DocsGPT and utilises GenAI, please review important information using sources."` | 介绍性文本，提供有关聊天机器人的上下文或免责声明。                                 |
+| **`theme`**        | `"dark" \| "light"` | `"dark"`                                                  | 小部件界面的配色主题。选项：`"dark"` 或 `"light"`。默认为 `"dark"`。         |
+| **`buttonIcon`**   | `string`         | `"https://your-icon"`                                        | 小部件启动按钮中使用的图标图片 URL。                                          |
+| **`buttonBg`**     | `string`         | `"#222327"`                                                 | 小部件启动按钮的背景颜色。                                                      |
+| **`size`**         | `"small" \| "medium"` | `"medium"`                                              | 小部件的尺寸。选项：`"small"` 或 `"medium"`。默认为 `"medium"`。                         |
+| **`showSources`**         | `boolean` | `false`                                              | 启用显示小部件内获取数据的来源 URL。当设置为 `true` 时，小部件将显示获取数据的原始来源。                         |
 
 ---
 
-## Notes on Widget Properties
+## 小部件属性说明
 
-*   **Full Customization:**  Every property listed in the table can be customized.  Override the defaults to create a widget that perfectly matches your branding and application context.  From avatars and titles to color schemes, you have fine-grained control over the widget's presentation.
-*   **API Key Handling:** The `apiKey` prop is optional. Only include it if your DocsGPT backend API is configured to require API key authentication. `apiHost` for DocsGPT Cloud is `https://gptcloud.arc53.com/`
+*   **完全自定义:** 表格中列出的所有属性均可自定义。通过覆盖默认值，您可以创建与品牌形象和应用场景完美匹配的小部件。从头像、标题到配色方案，您对小部件的呈现方式拥有细粒度控制权。
+*   **API密钥处理:** `apiKey`属性为可选参数。仅当您的DocsGPT后端API配置为需要API密钥认证时才需包含此参数。DocsGPT Cloud的`apiHost`为`https://gptcloud.arc53.com/`
 
-## Explore and Customize Further
+## 深入探索与定制
 
-The DocsGPT Widget is fully open-source, allowing for deep customization and extension beyond the readily available props.
+DocsGPT小部件完全开源，支持超越现成属性的深度定制与扩展。
 
-The complete source code for the React-based widget is available in the `extensions/react-widget` directory within the main [DocsGPT GitHub Repository](https://github.com/arc53/DocsGPT).  Feel free to explore the code, fork the repository, and tailor the widget to your exact requirements.
+基于React的小部件完整源代码位于主仓库[DocsGPT GitHub Repository](https://github.com/arc53/DocsGPT)的`extensions/react-widget`目录中。欢迎探索代码、分叉仓库，并根据您的具体需求调整小部件。

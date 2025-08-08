@@ -1,4 +1,5 @@
 ---
+
 title:
 description:
 ---
@@ -7,36 +8,34 @@ import { Callout } from 'nextra/components'
 import Image from 'next/image'
 import { Steps } from 'nextra/components'
 
-# Setting Up Local Language Models for Your App
+# 为应用配置本地语言模型
 
-Setting up local language models for your app can significantly enhance its capabilities, enabling it to understand and generate text in multiple languages without relying on external APIs. By integrating local language models, you can improve privacy, reduce latency, and ensure continuous functionality even in offline environments. Here's a comprehensive guide on how to set up local language models for your application:
+为应用配置本地语言模型可显著增强其功能，使其无需依赖外部API即可理解和生成多语言文本。通过集成本地语言模型，您可以提升隐私性、降低延迟，并确保在离线环境下仍能持续运行。以下是关于如何为应用程序设置本地语言模型的完整指南：
 
-## Steps:
-### For cloud version LLM change:
+## 操作步骤：
+
+### 云端版本LLM更换：
+
 <Steps >
-### Step 1
-Visit the chat screen and you will be to see the default LLM selected.
-### Step 2
-Click on it and you will get a drop down of various LLM's available to choose.
-### Step 3
-Choose the LLM of your choice.
+### 第一步
+访问聊天界面，您将看到默认选中的LLM模型。
+### 第二步
+点击该模型，将出现可供选择的各种LLM下拉列表。
+### 第三步
+选择您需要的LLM模型。
 
 </Steps>
 
+### 视频演示
 
-
-
-### Video Demo
 <Image src="/llms.gif" alt="prompts" width={800} height={500} />
 
-### For Open source llm change:
+### 开源版本LLM更换：
+
 <Steps>
-### Step 1
-For open source version please edit `LLM_PROVIDER`, `LLM_NAME` and others in the .env file. Refer to [⚙️ App Configuration](/Deploying/DocsGPT-Settings) for more information.
-### Step 2
-Visit [☁️ Cloud Providers](/Models/cloud-providers) for the updated list of online models. Make sure you have the right API_KEY and correct LLM_PROVIDER.
-For self-hosted please visit [🖥️ Local Inference](/Models/local-inference). 
+### 第一步
+对于开源版本，请编辑.env文件中的`LLM_PROVIDER`、`LLM_NAME`等参数。更多信息请参考[⚙️ 应用配置](/Deploying/DocsGPT-Settings)。
+### 第二步
+访问[☁️ 云服务提供商](/Models/cloud-providers)获取最新的在线模型列表。请确保您拥有正确的API_KEY和LLM_PROVIDER。
+如需自托管方案，请访问[🖥️ 本地推理](/Models/local-inference)。
 </Steps>
-
-
-

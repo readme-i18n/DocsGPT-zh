@@ -1,23 +1,25 @@
 ---
-title: Comprehensive Guide to Setting Up the Chatwoot Extension with DocsGPT
-description: This step-by-step guide walks you through the process of setting up the Chatwoot extension with DocsGPT, enabling seamless integration for automated responses and enhanced customer support. Learn how to launch DocsGPT, retrieve your Chatwoot access token, configure the .env file, and start the extension.
+
+title: 使用 DocsGPT 设置 Chatwoot 扩展的完整指南
+description: 本分步指南将带您完成将 Chatwoot 扩展与 DocsGPT 集成的全过程，实现自动化响应和增强客户支持的无缝衔接。学习如何启动 DocsGPT、获取 Chatwoot 访问令牌、配置 .env 文件以及启动扩展。
 ---
-## Chatwoot Extension Setup Guide
 
-### Step 1: Prepare and Start DocsGPT
+## Chatwoot 扩展设置指南
 
-- **Launch DocsGPT**: Follow the instructions in our [Quickstart](/quickstart) to start DocsGPT. Make sure to load your documentation.
+### 第一步：准备并启动 DocsGPT
 
-### Step 2: Get Access Token from Chatwoot
+- **启动 DocsGPT**：按照我们的[快速入门](/quickstart)指南启动 DocsGPT。确保已加载您的文档。
 
-- Go to Chatwoot.
-- In your profile settings (located at the bottom left), scroll down and copy the **Access Token**.
+### 第二步：从 Chatwoot 获取访问令牌
 
-### Step 3: Set Up Chatwoot Extension
+- 登录 Chatwoot。
+- 在个人资料设置（位于左下角）中，向下滚动并复制 **访问令牌**。
 
-- Navigate to `/extensions/chatwoot`.
-- Copy the `.env_sample` file and create a new file named `.env`.
-- Fill in the values in the `.env` file as follows:
+### 第三步：设置 Chatwoot 扩展
+
+- 进入 `/extensions/chatwoot` 目录。
+- 复制 `.env_sample` 文件并创建名为 `.env` 的新文件。
+- 按以下方式填写 `.env` 文件中的值：
 
 ```env
 docsgpt_url=<Docsgpt_API_URL>
@@ -26,23 +28,25 @@ docsgpt_key=<OpenAI_API_Key or Other_LLM_Key>
 chatwoot_token=<Token from Step 2>
 ```
 
-### Step 4: Start the Extension
+### 第四步：启动扩展
 
-- Use the command `flask run` to start the extension.
+- 使用命令 `flask run` 启动扩展。
 
-### Step 5: Optional - Extra Validation
+### 第五步：可选 - 额外验证
 
-- In app.py, uncomment lines 12-13 and 71-75.
-- Add the following lines to your .env file:
+- 在 app.py 中取消注释第 12-13 行和第 71-75 行。
+- 在 .env 文件中添加以下行：
+
 ```account_id=(optional) 1
 assignee_id=(optional) 1
 ```
-These Chatwoot values help ensure you respond to the correct widget and handle questions assigned to a specific user.
 
-### Stopping Bot Responses for Specific User or Session
+这些 Chatwoot 值有助于确保您响应正确的组件并处理分配给特定用户的问题。
 
-- If you want the bot to stop responding to questions for a specific user or session, add a label `human-requested` in your conversation.
+### 停止特定用户或会话的机器人响应
 
-### Additional Notes
+- 如果希望机器人停止响应特定用户或会话的问题，请在对话中添加 `human-requested` 标签。
 
-- For further details on training on other documentation, refer to our [wiki](https://github.com/arc53/DocsGPT/wiki/How-to-train-on-other-documentation).
+### 补充说明
+
+- 有关在其他文档上进行训练的更多详情，请参阅我们的 [wiki](https://github.com/arc53/DocsGPT/wiki/How-to-train-on-other-documentation)。

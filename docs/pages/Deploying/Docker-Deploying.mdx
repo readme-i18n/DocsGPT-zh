@@ -1,135 +1,135 @@
 ---
-title: Docker Deployment of DocsGPT
-description: Deploy DocsGPT using Docker and Docker Compose for easy setup and management.
+
+title: DocsGPT 的 Docker 部署
+description: 使用 Docker 和 Docker Compose 轻松部署和管理 DocsGPT。
 ---
 
-# Docker Deployment of DocsGPT
+# DocsGPT 的 Docker 部署
 
-Docker is the recommended method for deploying DocsGPT, providing a consistent and isolated environment for the application to run. This guide will walk you through deploying DocsGPT using Docker and Docker Compose.
+Docker 是部署 DocsGPT 的推荐方式，能为应用提供一致的隔离运行环境。本指南将引导您使用 Docker 和 Docker Compose 完成部署。
 
-## Prerequisites
+## 前置条件
 
-* **Docker Engine:** You need to have Docker Engine installed on your system.
+* **Docker 引擎:** 系统需安装 Docker 引擎
     * **macOS:** [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/)
-    * **Linux:** [Docker Engine Installation Guide](https://docs.docker.com/engine/install/) (follow instructions for your specific distribution)
-    * **Windows:** [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/) (requires WSL 2 backend, see notes below)
-* **Docker Compose:** Docker Compose is usually included with Docker Desktop. If you are using Docker Engine separately, ensure you have Docker Compose V2 installed.
+    * **Linux:** [Docker 引擎安装指南](https://docs.docker.com/engine/install/) (根据具体发行版选择安装方式)
+    * **Windows:** [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/) (需 WSL 2 支持，详见下方说明)
+* **Docker Compose:** Docker Desktop 通常已包含该组件。若单独使用 Docker 引擎，请确保安装 Docker Compose V2
 
-**Important Note for Windows Users:** Docker Desktop on Windows generally requires the WSL 2 backend to function correctly, especially when using features like host networking which are utilized in DocsGPT's Docker Compose setup. Ensure WSL 2 is enabled and configured in Docker Desktop settings.
+**Windows 用户重要提示:** Windows 上的 Docker Desktop 通常需要 WSL 2 后端支持才能正常运行，特别是当使用 DocsGPT 的 Docker Compose 配置中涉及的 host 网络等功能时。请确保在 Docker Desktop 设置中启用并配置 WSL 2。
 
-## Quickest Setup: Using DocsGPT Public API
+## 最快捷方案：使用 DocsGPT 公共 API
 
-The fastest way to try out DocsGPT is by using the public API endpoint. This requires minimal configuration and no local LLM setup.
+体验 DocsGPT 最快的方式是使用公共 API 端点。这种方式配置极简且无需本地 LLM 设置。
 
-1.  **Clone the DocsGPT Repository (if you haven't already):**
+1.  **克隆 DocsGPT 仓库（如尚未操作）：**
 
     ```bash
     git clone https://github.com/arc53/DocsGPT.git
     cd DocsGPT
     ```
 
-2.  **Create a `.env` file:**
+2.  **创建 `.env` 文件：**
 
-    In the root directory of your DocsGPT repository, create a file named `.env`.
+    在 DocsGPT 仓库的根目录下创建名为 `.env` 的文件。
 
-3.  **Add Public API Configuration to `.env`:**
+3.  **向 `.env` 添加公共 API 配置：**
 
-    Open the `.env` file and add the following lines:
+    打开 `.env` 文件并添加以下内容：
 
     ```
     LLM_PROVIDER=docsgpt
     VITE_API_STREAMING=true
     ```
 
-    This minimal configuration tells DocsGPT to use the public API. For more advanced settings and other LLM options, refer to the [DocsGPT Settings Guide](/Deploying/DocsGPT-Settings).
+    此最小化配置告知 DocsGPT 使用公共 API。如需高级设置和其他 LLM 选项，请参阅 [DocsGPT 设置指南](/Deploying/DocsGPT-Settings)。
 
-4.  **Launch DocsGPT with Docker Compose:**
+4.  **使用 Docker Compose 启动 DocsGPT：**
 
-    Navigate to the root directory of the DocsGPT repository in your terminal and run:
+    在终端中导航至 DocsGPT 仓库的根目录并运行：
 
     ```bash
     docker compose -f deployment/docker-compose.yaml up -d
     ```
 
-    The `-d` flag runs Docker Compose in detached mode (in the background).
+    `-d` 标志表示以分离模式（后台运行）启动 Docker Compose。
 
-5.  **Access DocsGPT in your browser:**
+5.  **在浏览器中访问 DocsGPT：**
 
-    Once the containers are running, open your web browser and go to [http://localhost:5173/](http://localhost:5173/).
+    当容器运行后，打开浏览器访问 [http://localhost:5173/](http://localhost:5173/)。
 
-6.  **Stopping DocsGPT:**
+6.  **停止 DocsGPT：**
 
-    To stop the application, navigate to the same directory in your terminal and run:
+    要停止应用，在终端中进入相同目录并运行：
 
     ```bash
     docker compose -f deployment/docker-compose.yaml down
     ```
 
-## Optional Ollama Setup (Local Models)
+## 可选的 Ollama 设置（本地模型）
 
-DocsGPT provides optional Docker Compose files to easily integrate with [Ollama](https://ollama.com/) for running local models. These files add an official Ollama container to your Docker Compose setup. These files are located in the `deployment/optional/` directory.
+DocsGPT 提供了可选的 Docker Compose 文件，便于与 [Ollama](https://ollama.com/) 集成以运行本地模型。这些文件会在您的 Docker Compose 配置中添加一个官方的 Ollama 容器。相关文件位于 `deployment/optional/` 目录下。
 
-There are two Ollama optional files:
+Ollama 可选文件包含两种：
 
-*   **`docker-compose.optional.ollama-cpu.yaml`**: For running Ollama on CPU.
-*   **`docker-compose.optional.ollama-gpu.yaml`**: For running Ollama on GPU (requires Docker to be configured for GPU usage).
+*   **`docker-compose.optional.ollama-cpu.yaml`**：用于在 CPU 上运行 Ollama
+*   **`docker-compose.optional.ollama-gpu.yaml`**：用于在 GPU 上运行 Ollama（需要预先配置 Docker 的 GPU 支持）
 
-### Launching with Ollama and Pulling a Model
+### 启动 Ollama 并拉取模型
 
-1.  **Clone the DocsGPT Repository and Create `.env` (as described above).**
+1. **克隆 DocsGPT 仓库并创建 `.env` 文件（如上文所述）**
 
-2.  **Launch DocsGPT with Ollama Docker Compose:**
+2. **使用 Ollama Docker Compose 启动 DocsGPT：**
 
-    Choose the appropriate Ollama Compose file (CPU or GPU) and launch DocsGPT:
+   选择适合的 Ollama Compose 文件（CPU 或 GPU 版本）并启动 DocsGPT：
 
-    **CPU:**
-    ```bash
-    docker compose --env-file .env -f deployment/docker-compose.yaml -f deployment/optional/docker-compose.optional.ollama-cpu.yaml up -d
-    ```
-    **GPU:**
-    ```bash
-    docker compose --env-file .env -f deployment/docker-compose.yaml -f deployment/optional/docker-compose.optional.ollama-gpu.yaml up -d
-    ```
+   **CPU 版本：**
+   ```bash
+   docker compose --env-file .env -f deployment/docker-compose.yaml -f deployment/optional/docker-compose.optional.ollama-cpu.yaml up -d
+   ```
+   **GPU 版本：**
+   ```bash
+   docker compose --env-file .env -f deployment/docker-compose.yaml -f deployment/optional/docker-compose.optional.ollama-gpu.yaml up -d
+   ```
 
-3.  **Pull the Ollama Model:**
+3. **拉取 Ollama 模型：**
 
-    **Crucially, after launching with Ollama, you need to pull the desired model into the Ollama container.**  Find the `LLM_NAME` you configured in your `.env` file (e.g., `llama3.2:1b`). Then execute the following command to pull the model *inside* the running Ollama container:
+   **关键步骤：** 使用 Ollama 启动后，需将所需模型拉取至 Ollama 容器内。在 `.env` 文件中找到配置的 `LLM_NAME`（例如 `llama3.2:1b`），然后在运行的 Ollama 容器内执行以下命令拉取模型：
 
-    ```bash
-    docker compose -f deployment/docker-compose.yaml -f deployment/optional/docker-compose.optional.ollama-cpu.yaml exec -it ollama ollama pull <LLM_NAME>
-    ```
-    or (for GPU):
-     ```bash
-    docker compose -f deployment/docker-compose.yaml -f deployment/optional/docker-compose.optional.ollama-gpu.yaml exec -it ollama ollama pull <LLM_NAME>
-    ```
-    Replace `<LLM_NAME>` with the actual model name from your `.env` file.
+   ```bash
+   docker compose -f deployment/docker-compose.yaml -f deployment/optional/docker-compose.optional.ollama-cpu.yaml exec -it ollama ollama pull <LLM_NAME>
+   ```
+   或（GPU 版本）：
+   ```bash
+   docker compose -f deployment/docker-compose.yaml -f deployment/optional/docker-compose.optional.ollama-gpu.yaml exec -it ollama ollama pull <LLM_NAME>
+   ```
+   将 `<LLM_NAME>` 替换为 `.env` 文件中的实际模型名称。
 
-4.  **Access DocsGPT in your browser:**
+4. **在浏览器中访问 DocsGPT：**
 
-    Once the model is pulled and containers are running, open your web browser and go to [http://localhost:5173/](http://localhost:5173/).
+   模型拉取完成且容器运行后，打开浏览器访问 [http://localhost:5173/](http://localhost:5173/)。
 
-5.  **Stopping Ollama Setup:**
+5. **停止 Ollama 服务：**
 
-    To stop a DocsGPT setup launched with Ollama optional files, use `docker compose down` and include all the compose files used during the `up` command:
+   若要停止通过 Ollama 可选文件启动的 DocsGPT 服务，需在 `docker compose down` 命令中包含所有 `up` 阶段使用的 compose 文件：
 
-    ```bash
-    docker compose -f deployment/docker-compose.yaml -f deployment/optional/docker-compose.optional.ollama-cpu.yaml down
-    ```
-    or
+   ```bash
+   docker compose -f deployment/docker-compose.yaml -f deployment/optional/docker-compose.optional.ollama-cpu.yaml down
+   ```
+   或
+   ```bash
+   docker compose -f deployment/docker-compose.yaml -f deployment/optional/docker-compose.optional.ollama-gpu.yaml down
+   ```
 
-    ```bash
-    docker compose -f deployment/docker-compose.yaml -f deployment/optional/docker-compose.optional.ollama-gpu.yaml down
-    ```
+**GPU 使用注意事项：**
 
-**Important for GPU Usage:**
+*   **NVIDIA 容器工具包（适用于 NVIDIA GPU）：** 若使用 NVIDIA GPU，需在系统中安装并配置 [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)，以便 Docker 访问 GPU 资源。
+*   **Docker GPU 配置：** 确保 Docker 已配置为使用 GPU。请参考 [Ollama Docker Hub 页面](https://hub.docker.com/r/ollama/ollama) 及 Docker 官方文档，根据您的 GPU 类型（NVIDIA/AMD/Intel）进行具体设置。
 
-*   **NVIDIA Container Toolkit (for NVIDIA GPUs):** If you are using NVIDIA GPUs, you need to have the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) installed and configured on your system for Docker to access your GPU.
-*   **Docker GPU Configuration:** Ensure Docker is configured to utilize your GPU. Refer to the [Ollama Docker Hub page](https://hub.docker.com/r/ollama/ollama) and Docker documentation for GPU setup instructions specific to your GPU type (NVIDIA, AMD, Intel).
+## 配置变更后重启服务
 
-## Restarting After Configuration Changes
+修改 `.env` 文件或任何 Docker Compose 文件后，必须重启 Docker 容器才能使变更生效。使用最初启动 DocsGPT 时相同的命令 `docker compose down` 和 `docker compose up -d`，若使用了可选配置文件，请确保包含所有对应的 `-f` 参数。
 
-Whenever you modify the `.env` file or any Docker Compose files, you need to restart the Docker containers for the changes to be applied.  Use the same `docker compose down` and `docker compose up -d` commands you used to launch DocsGPT, ensuring you include all relevant `-f` flags for optional files if you are using them.
+## 进阶配置
 
-## Further Configuration
-
-This guide covers the basic Docker deployment of DocsGPT. For detailed information on configuring various aspects of DocsGPT, such as LLM providers, models, vector stores, and more, please refer to the comprehensive [DocsGPT Settings Guide](/Deploying/DocsGPT-Settings).
+本文档仅涵盖 DocsGPT 的 Docker 基础部署。如需配置 LLM 供应商、模型、向量存储等高级选项，请参阅完整的 [DocsGPT 设置指南](/Deploying/DocsGPT-Settings)。

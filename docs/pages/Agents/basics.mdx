@@ -1,90 +1,97 @@
 ---
-title: Understanding DocsGPT Agents
-description: Learn about DocsGPT Agents, their types, how to create and manage them, and how they can enhance your interaction with documents and tools.
+
+title: 理解 DocsGPT 智能体
+description: 了解 DocsGPT 智能体的类型、创建与管理方法，以及它们如何增强您与文档和工具的交互体验。
 ---
 
 import { Callout } from 'nextra/components';
 import Image from 'next/image'; // Assuming you might want to embed images later, like the ones you uploaded.
 
-# Understanding DocsGPT Agents 🤖
+# 理解 DocsGPT 智能体 🤖
 
-DocsGPT Agents are advanced, configurable AI entities designed to go beyond simple question-answering. They act as specialized assistants or workers that combine instructions (prompts), knowledge (document sources), and capabilities (tools) to perform a wide range of tasks, automate workflows, and provide tailored interactions.
+DocsGPT 智能体是可配置的高级人工智能实体，其功能远超简单的问答场景。它们作为专业助手或工作者，能够结合指令（提示）、知识（文档来源）和能力（工具）来执行广泛的任务、自动化工作流程并提供定制化交互。
 
-Think of an Agent as a pre-configured version of DocsGPT, fine-tuned for a specific purpose, such as classifying documents, responding to new form submissions, or validating emails.
+您可以将智能体视为预配置版的 DocsGPT，经过专门调优以实现特定目标，例如文档分类、新表单提交响应或电子邮件验证等场景。
 
-## Why Use Agents?
+## 为何使用智能体？
 
-* **Personalization:** Create AI assistants that behave and respond according to specific roles or personas.
-* **Task Specialization:** Design agents focused on particular tasks, like customer support, data extraction, or content generation.
-* **Knowledge Integration:** Equip agents with specific document sources, making them experts in particular domains.
-* **Tool Utilization:** Grant agents access to various tools, allowing them to interact with external services, fetch live data, or perform actions.
-* **Automation:** Automate repetitive tasks by defining an agent's behavior and integrating it via webhooks or other means.
-* **Shareability:** Share your custom-configured agents with others or use agents shared with you.
+* **个性化定制**：创建能根据特定角色或人设进行行为和响应的人工智能助手。
+* **任务专业化**：设计专注于特定任务的智能体，如客户支持、数据提取或内容生成。
+* **知识整合**：为智能体配备特定文档资源，使其成为特定领域的专家。
+* **工具调用**：授予智能体访问各类工具的权限，使其能与外部服务交互、获取实时数据或执行操作。
+* **自动化**：通过定义智能体行为并集成Webhook等方式，实现重复性任务的自动化处理。
+* **可共享性**：与他人分享您自定义配置的智能体，或使用他人共享的智能体。
 
-Agents provide a more structured and powerful way to leverage LLMs compared to a standard chat interface, as they come with a pre-defined context, instruction set, and set of capabilities.
+相比标准聊天界面，智能体提供了更结构化、更强大的方式来利用大语言模型，因为它们具备预定义的上下文、指令集和功能集合。
 
-## Core Components of an Agent
+## 智能体的核心组件
 
-When you create or configure an agent, you'll work with these key components:  
+创建或配置智能体时，您将涉及以下关键组件：
 
-**Meta:**
-    * **Agent Name:** A user-friendly name to identify the agent (e.g., "Support Ticket Classifier," "Product Spec Expert").
-    * **Describe your agent:** A brief description for you or users to understand the agent's purpose.
+**元数据：**
 
-**Source:**
-    * **Select source:** The knowledge base for the agent. You can select from previously uploaded documents or data sources. This is what the agent will "know."
-    * **Chunks per query:** A numerical value determining how many relevant text chunks from the selected source are sent to the LLM with each query. This helps manage context length and relevance.
+* **智能体名称**：用于识别智能体的用户友好名称（例如"工单分类器"、"产品规格专家"）。
+    * **描述您的智能体**：简要说明以帮助您或用户理解智能体的用途。
 
-**Prompt:**
-The main set of instructions or system [prompt](/Guides/Customising-prompts) that defines the agent's persona, objectives, constraints, and how it should behave or respond.
+**数据源：**
 
-**Tools:** A selection of available [DocsGPT Tools](/Tools/basics) that the agent can use to perform actions or access external information.
+* **选择数据源:** 代理的知识库来源。可从先前上传的文档或数据源中选择，这将决定代理"掌握"的知识范围。
+    * **每次查询块数:** 数值参数，决定每次查询时从选定数据源发送给大语言模型的相关文本块数量。该参数有助于管理上下文长度与相关性。
 
-**Agent type:** The underlying operational logic or architecture the agent uses. DocsGPT supports different types of agents, each suited for different kinds of tasks.
+**提示词:**
+定义代理角色、目标、约束条件及行为响应方式的核心指令集或系统[提示词](/Guides/Customising-prompts)。
 
-## Understanding Agent Types
+**工具集:** 代理可调用的[DocsGPT工具](/Tools/basics)选项，用于执行操作或获取外部信息。
 
-DocsGPT allows for different "types" of agents, each with a distinct way of processing information and generating responses. The code for these agent types can be found in the `application/agents/` directory.
+**代理类型:** 代理使用的底层运行逻辑或架构。DocsGPT支持多种代理类型，分别适用于不同任务场景。
 
-### 1. Classic Agent (`classic_agent.py`)
+## 理解代理类型
 
-**How it works:** The Classic Agent follows a traditional Retrieval Augmented Generation (RAG) approach.
-    1.  **Retrieve:** When a query is made, it first searches the selected Source documents for relevant information.
-    2.  **Augment:** This retrieved data is then added to the context, along with the main Prompt and the user's query.
-    3.  **Generate:** The LLM generates a response based on this augmented context. It can also utilize any configured tools if the LLM decides they are necessary.
+DocsGPT支持多种"类型"的代理，每种类型具有独特的信息处理与响应生成方式。相关代码位于`application/agents/`目录。
 
-**Best for:**
-    * Direct question-answering over a specific set of documents.
-    * Tasks where the primary goal is to extract and synthesize information from the provided sources.
-    * Simpler tool integrations where the decision to use a tool is straightforward.
+### 1. 经典代理 (`classic_agent.py`)
 
-### 2. ReAct Agent (`react_agent.py`)
+**工作原理:** 经典代理采用传统的检索增强生成(Retrieval Augmented Generation, RAG)技术路线。
 
-**How it works:** The ReAct Agent employs a more sophisticated "Reason and Act" framework. This involves a multi-step process:
-    1.  **Plan (Thought):** Based on the query, its prompt, and available tools/sources, the LLM first generates a plan or a sequence of thoughts on how to approach the problem. You might see this output as a "thought" process during generation.
-    2.  **Act:** The agent then executes actions based on this plan. This might involve querying its sources, using a tool, or performing internal reasoning.
-    3.  **Observe:** It gathers observations from the results of its actions (e.g., data from a tool, snippets from documents).
-    4.  **Repeat (if necessary):** Steps 2 and 3 can be repeated as the agent refines its approach or gathers more information.
-    5.  **Conclude:** Finally, it generates the final answer based on the initial query and all accumulated observations.
+1. **检索（Retrieve）**：当发起查询时，系统首先在选定的源文档中搜索相关信息。
+2. **增强（Augment）**：检索到的数据随后与主提示词及用户查询一起被添加上下文。
+3. **生成（Generate）**：大语言模型基于增强后的上下文生成响应。如果模型判定需要，还可调用任何已配置的工具。
 
-**Best for:**
-    * More complex tasks that require multi-step reasoning or problem-solving.
-    * Scenarios where the agent needs to dynamically decide which tools to use and in what order, based on intermediate results.
-    * Interactive tasks where the agent needs to "think" through a problem.
+**最佳适用场景：**
+
+* 针对特定文档集的直接问答
+* 以从给定来源提取并整合信息为主要目标的任务
+* 工具调用决策较为简单的轻量级工具集成
+
+### 2. ReAct 代理（`react_agent.py`）
+
+**工作原理：** ReAct 代理采用更复杂的"推理-行动"框架，其流程包含多个步骤：
+
+1. **规划（思考）**：根据查询内容、提示信息及可用工具/资源，LLM 首先生成解决问题的计划或思考序列。在生成过程中，您可能会看到此输出表现为"思考"流程。
+    2. **执行**：智能体随后根据该计划执行操作。这可能涉及查询资源、使用工具或进行内部推理。
+    3. **观察**：从操作结果中收集观察数据（例如工具返回的数据、文档片段）。
+    4. **循环（如需）**：步骤2和3可重复进行，直到智能体优化其方法或收集到足够信息。
+    5. **总结**：最终基于初始查询和所有累积观察生成最终答案。
+
+**最佳适用场景：**
+
+* 需要多步推理或问题解决的复杂任务
+    * 需要根据中间结果动态决定工具使用顺序的场景
+    * 需要智能体"思考"解决问题的交互式任务
 
 <Callout type="info">
-Developers looking to introduce new agent architectures can explore the `application/agents/` directory. `classic_agent.py` and `react_agent.py` serve as excellent starting points, demonstrating how to inherit from `BaseAgent` and structure agent logic.
+开发人员若要引入新的智能体架构，可探索 `application/agents/` 目录。其中 `classic_agent.py` 和 `react_agent.py` 作为优秀起点，演示了如何继承 `BaseAgent` 并构建智能体逻辑。
 </Callout>
 
-## Navigating and Managing Agents in DocsGPT
+## 在 DocsGPT 中导航与管理智能体
 
-You can easily access and manage your agents through the DocsGPT user interface. Recently used agents appear at the top of the left sidebar for quick access. Below these, the "Manage Agents" button will take you to the main Agents page.
+您可以通过 DocsGPT 用户界面轻松访问和管理您的智能体。最近使用的智能体会显示在左侧边栏顶部以便快速访问，下方的"管理智能体"按钮将带您进入智能体主页面。
 
-### Creating a New Agent
+### 创建新智能体
 
-1.  Navigate to the "Agents" page.
-2.  Click the **"New Agent"** button.
-3.  You will be presented with the "New Agent" configuration screen:
+1. 导航至"智能体"页面
+2. 点击**"新建智能体"**按钮
+3. 系统将显示"新建智能体"配置界面：
 
 <Image
   src="/new-agent.png"
@@ -94,16 +101,16 @@ You can easily access and manage your agents through the DocsGPT user interface.
   style={{ margin: '1em auto', display: 'block', borderRadius: '8px' }}
 />
 
-4.  Fill in the fields as described in the "Core Components of an Agent" section.
-5.  Once configured, you can **"Save Draft"** to continue editing later or **"Publish"** to make the agent active.
+4. 按照"智能体核心组件"章节说明填写各字段
+5. 配置完成后，您可以**"保存草稿"**以便后续继续编辑，或**"发布"**使智能体生效
 
-## Interacting with and Editing Agents
+## 交互与编辑智能体
 
-Once an agent is created, you can:
+智能体创建后，您可以：
 
-* **Chat with it:** Select the agent to start an interaction.
-* **View Logs:** Access usage statistics, monitor token consumption per interaction, and review user message feedbacks. This is crucial for understanding how your agent is being used and performing.
-* **Edit an Agent:**
-    * Modify any of its configuration settings (name, description, source, prompt, tools, type).
-    * **Generate a Public Link:** From the edit screen, you can create a shareable public link that allows others to import and use your agent.
-    * **Get a Webhook URL:** You can also obtain a Webhook URL for the agent. This allows external applications or services to trigger the agent and receive responses programmatically, enabling powerful integrations and automations.
+* **与其对话**：选择智能体开始交互
+* **查看日志**：访问使用统计、监控每次交互的令牌消耗、查看用户消息反馈。这对了解智能体的使用情况和性能表现至关重要
+* **编辑智能体**：
+    * 修改任意配置设置（名称、描述、数据源、提示词、工具、类型）
+    * **生成公开链接**：在编辑界面创建可分享的公开链接，允许他人导入并使用您的智能体
+    * **获取Webhook URL**：您还可以获取智能体的Webhook URL，使外部应用或服务能够以编程方式触发智能体并接收响应，实现强大的集成与自动化功能

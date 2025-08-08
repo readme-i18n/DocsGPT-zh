@@ -1,73 +1,75 @@
 ---
-title: Hosting DocsGPT on Amazon Lightsail
-description:
+
+title: 在 Amazon Lightsail 上托管 DocsGPT
+description: 
 display: hidden
 ---
 
-# Self-hosting DocsGPT on Amazon Lightsail
+# 在 Amazon Lightsail 上自托管 DocsGPT
 
-Here's a step-by-step guide on how to set up an Amazon Lightsail instance to host DocsGPT.
+以下是设置 Amazon Lightsail 实例以托管 DocsGPT 的逐步指南。
 
-## Configuring your instance
+## 配置您的实例
 
-(If you know how to create a Lightsail instance, you can skip to the recommended configuration part by clicking [here](#connecting-to-your-newly-created-instance)).
+(如果您知道如何创建 Lightsail 实例，可以通过点击[此处](#connecting-to-your-newly-created-instance)跳转到推荐配置部分)。
 
-### 1. Create an AWS Account: 
-If you haven't already, create or log in to your AWS account at https://lightsail.aws.amazon.com.
+### 1. 创建 AWS 账户：
 
-### 2. Create an Instance: 
+如果尚未拥有，请访问 https://lightsail.aws.amazon.com 创建或登录您的 AWS 账户。
 
-a. Click "Create Instance."
+### 2. 创建实例：
 
-b. Select the "Instance location." In most cases, the default location works fine.
+a. 点击"创建实例"。
 
-c. Choose "Linux/Unix" as the image and "Ubuntu 20.04 LTS" as the Operating System.
+b. 选择"实例位置"。大多数情况下默认位置即可。
 
-d. Configure the instance plan based on your requirements. A "1 GB, 1vCPU, 40GB SSD, and 2TB transfer" setup is recommended for most scenarios.
+c. 选择"Linux/Unix"作为镜像，"Ubuntu 20.04 LTS"作为操作系统。
 
-e. Give your instance a unique name and click "Create Instance."
+d. 根据需求配置实例方案。推荐大多数场景使用"1 GB内存、1vCPU、40GB SSD和2TB传输"的配置。
 
-PS: It may take a few minutes for the instance setup to complete.
+e. 为实例命名后点击"创建实例"。
 
-### Connecting to Your newly created Instance
+注：实例设置可能需要几分钟完成。
 
-Your instance will be ready a few minutes after creation. To access it, open the instance and click "Connect using SSH."
+### 连接新创建的实例
 
-#### Clone the DocsGPT Repository
+实例创建完成后几分钟即可使用。要访问它，请打开实例并点击"使用SSH连接"。
 
-A terminal window will pop up, and the first step will be to clone the DocsGPT Git repository:
+#### 克隆 DocsGPT 仓库
+
+终端窗口将弹出，第一步是克隆 DocsGPT 的 Git 仓库：
 
 `git clone https://github.com/arc53/DocsGPT.git`
 
-#### Download the package information
+#### 下载包信息
 
-Once it has finished cloning the repository, it is time to download the package information from all sources. To do so, simply enter the following command:
+克隆仓库完成后，需要从所有源下载包信息。执行以下命令：
 
 `sudo apt update`
 
-#### Install Docker and Docker Compose
+#### 安装 Docker 和 Docker Compose
 
-DocsGPT backend and worker use Python, Frontend is written on React and the whole application is containerized using Docker. To install Docker and Docker Compose, enter the following commands:
+DocsGPT 后端和 worker 使用 Python，前端基于 React 编写，整个应用通过 Docker 容器化。安装 Docker 和 Docker Compose 需执行以下命令：
 
 `sudo apt install docker.io`
 
-And now install docker-compose:
+接着安装 docker-compose：
 
 `sudo apt install docker-compose`
 
-#### Access the DocsGPT Folder
+#### 进入 DocsGPT 目录
 
-Enter the following command to access the folder in which the DocsGPT docker-compose file is present.
+执行以下命令进入包含 DocsGPT docker-compose 文件的目录：
 
 `cd DocsGPT/`
 
-#### Prepare the Environment
+#### 准备环境
 
-Inside the DocsGPT folder create a `.env` file and copy the contents of `.env_sample` into it.
+在 DocsGPT 目录下创建 `.env` 文件，并将 `.env_sample` 的内容复制到其中：
 
 `nano .env`
 
-Make sure your `.env` file looks like this:
+确保你的 `.env` 文件内容如下：
 
 ```
 OPENAI_API_KEY=(Your OpenAI API key)
@@ -75,36 +77,35 @@ VITE_API_STREAMING=true
 SELF_HOSTED_MODEL=false
 ```
 
-To save the file, press CTRL+X, then Y, and then ENTER.
+保存文件请按 CTRL+X，然后按 Y，最后按 ENTER。
 
-Next, set the correct IP for the Backend by opening the docker-compose.yml file:
+接下来，通过编辑 docker-compose.yml 文件设置正确的后端 IP：
 
 `nano deployment/docker-compose.yaml`
 
-And Change line 7 to: `VITE_API_HOST=http://localhost:7091`
-to this `VITE_API_HOST=http://<your instance public IP>:7091`
+将第 7 行修改为：`VITE_API_HOST=http://<你的实例公网IP>:7091`
 
-This will allow the frontend to connect to the backend.
+这将允许前端连接到后端。
 
-#### Running the Application
+#### 运行应用
 
-You're almost there! Now that all the necessary bits and pieces have been installed, it is time to run the application. To do so, use the following command:
+即将大功告成！所有必要的组件都已安装完毕，现在可以运行应用程序了。请使用以下命令启动：
 
 `sudo docker compose -f deployment/docker-compose.yaml up -d`
 
-Launching it for the first time will take a few minutes to download all the necessary dependencies and build.
+首次启动需要几分钟时间下载所有依赖项并完成构建。
 
-Once this is done you can go ahead and close the terminal window.
+完成后即可关闭终端窗口。
 
-#### Enabling Ports 
+#### 启用端口
 
-a. Before you are able to access your live instance, you must first enable the port that it is using.
+a. 访问在线实例前，需先启用其使用的端口
 
-b. Open your Lightsail instance and head to "Networking".
+b. 打开Lightsail实例，进入"Networking"（网络）选项卡
 
-c. Then click on "Add rule" under "IPv4 Firewall", enter `5173` as your port, and hit "Create". 
-Repeat the process for port `7091`.
+c. 在"IPv4 Firewall"（IPv4防火墙）下点击"Add rule"（添加规则），输入端口号`5173`后点击"Create"（创建）
+对端口`7091`重复相同操作
 
-#### Access your instance
+#### 访问实例
 
-Your instance is now available at your Public IP Address on port 5173. Enjoy using DocsGPT!
+现在可通过公网IP地址的5173端口访问您的实例。祝您使用DocsGPT愉快！
