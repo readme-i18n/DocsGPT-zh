@@ -11,17 +11,17 @@
 </p>
 
 <div align="center">
-  
-  <a href="https://github.com/arc53/DocsGPT">![link to main GitHub showing Stars number](https://img.shields.io/github/stars/arc53/docsgpt?style=social)</a>
-  <a href="https://github.com/arc53/DocsGPT">![link to main GitHub showing Forks number](https://img.shields.io/github/forks/arc53/docsgpt?style=social)</a>
-  <a href="https://github.com/arc53/DocsGPT/blob/main/LICENSE">![link to license file](https://img.shields.io/github/license/arc53/docsgpt)</a>
-  <a href="https://www.bestpractices.dev/projects/9907"><img src="https://www.bestpractices.dev/projects/9907/badge"></a>
-  <a href="https://discord.gg/n5BX8dh8rU">![link to discord](https://img.shields.io/discord/1070046503302877216)</a>
-  <a href="https://twitter.com/docsgptai">![X (formerly Twitter) URL](https://img.shields.io/twitter/follow/docsgptai)</a>
 
-<a href="https://docs.docsgpt.cloud/quickstart">⚡️ Quickstart</a> • <a href="https://app.docsgpt.cloud/">☁️ Cloud Version</a> • <a href="https://discord.gg/n5BX8dh8rU">💬 Discord</a>
+<a href="https://github.com/arc53/DocsGPT">![GitHub 主仓库星标数链接](https://img.shields.io/github/stars/arc53/docsgpt?style=social)</a>
+  <a href="https://github.com/arc53/DocsGPT">![GitHub 主仓库分叉数链接](https://img.shields.io/github/forks/arc53/docsgpt?style=social)</a>
+  <a href="https://github.com/arc53/DocsGPT/blob/main/LICENSE">![许可证文件链接](https://img.shields.io/github/license/arc53/docsgpt)</a>
+  <a href="https://www.bestpractices.dev/projects/9907"><img src="https://www.bestpractices.dev/projects/9907/badge"></a>
+  <a href="https://discord.gg/n5BX8dh8rU">![Discord 链接](https://img.shields.io/discord/1070046503302877216)</a>
+  <a href="https://twitter.com/docsgptai">![X(原 Twitter) URL](https://img.shields.io/twitter/follow/docsgptai)</a>
+
+<a href="https://docs.docsgpt.cloud/quickstart">⚡️ 快速开始</a> • <a href="https://app.docsgpt.cloud/">☁️ 云端版本</a> • <a href="https://discord.gg/n5BX8dh8rU">💬 Discord</a>
 <br>
-<a href="https://docs.docsgpt.cloud/">📖 Documentation</a> • <a href="https://github.com/arc53/DocsGPT/blob/main/CONTRIBUTING.md">👫 Contribute</a> • <a href="https://blog.docsgpt.cloud/">🗞 Blog</a>
+<a href="https://docs.docsgpt.cloud/">📖 文档</a> • <a href="https://github.com/arc53/DocsGPT/blob/main/CONTRIBUTING.md">👫 参与贡献</a> • <a href="https://blog.docsgpt.cloud/">🗞 博客</a>
 <br>
 
 </div>
@@ -42,116 +42,116 @@
     <li><strong>🏢 Secure & Scalable:</strong> Run privately and securely with Kubernetes support, designed for enterprise-grade reliability.</li>
 </ul>
 
-## Roadmap
+## 路线图
 
-- [x] Full GoogleAI compatibility (Jan 2025)
-- [x] Add tools (Jan 2025)
-- [x] Manually updating chunks in the app UI (Feb 2025)
-- [x] Devcontainer for easy development (Feb 2025)
-- [x] ReACT agent (March 2025)
-- [x] Chatbots menu re-design to handle tools, agent types, and more (April 2025)
-- [x] New input box in the conversation menu (April 2025)
-- [x] Add triggerable actions / tools (webhook) (April 2025)
-- [x] Agent optimisations (May 2025)
-- [x] Filesystem sources update (July 2025)
-- [x] Json Responses (August 2025)
-- [ ] Sharepoint integration (August 2025)
-- [ ] MCP support (August 2025)
-- [ ] Add OAuth 2.0 authentication for tools and sources (August 2025)
-- [ ] Agent scheduling
+- [x] 完全兼容 GoogleAI（2025年1月）
+- [x] 添加工具支持（2025年1月）
+- [x] 应用界面手动更新数据块功能（2025年2月）
+- [x] 开发容器简化开发流程（2025年2月）
+- [x] ReACT 智能体（2025年3月）
+- [x] 聊天机器人菜单重构，支持工具、智能体类型等功能（2025年4月）
+- [x] 对话菜单新增输入框（2025年4月）
+- [x] 添加可触发操作/工具（webhook）（2025年4月）
+- [x] 智能体优化（2025年5月）
+- [x] 文件系统数据源更新（2025年7月）
+- [x] JSON 响应支持（2025年8月）
+- [ ] SharePoint 集成（2025年8月）
+- [ ] MCP 支持（2025年8月）
+- [ ] 为工具和数据源添加 OAuth 2.0 认证（2025年8月）
+- [ ] 智能体调度功能
 
-You can find our full roadmap [here](https://github.com/orgs/arc53/projects/2). Please don't hesitate to contribute or create issues, it helps us improve DocsGPT!
+完整路线图可在此处查看[here](https://github.com/orgs/arc53/projects/2)。欢迎贡献代码或提交问题，这将帮助我们改进 DocsGPT！
 
-### Production Support / Help for Companies:
+### 生产环境支持/企业协助：
 
-We're eager to provide personalized assistance when deploying your DocsGPT to a live environment.
+我们乐意为您部署 DocsGPT 至生产环境提供个性化支持。
 
-[Get a Demo :wave:](https://www.docsgpt.cloud/contact)⁠
+[预约演示 :wave:](https://www.docsgpt.cloud/contact)⁠
 
-[Send Email :email:](mailto:support@docsgpt.cloud?subject=DocsGPT%20support%2Fsolutions)
+[发送邮件 :email:](mailto:support@docsgpt.cloud?subject=DocsGPT%20support%2Fsolutions)
 
-## Join the Lighthouse Program 🌟
+## 加入灯塔计划 🌟
 
-Calling all developers and GenAI innovators! The **DocsGPT Lighthouse Program** connects technical leaders actively deploying or extending DocsGPT in real-world scenarios. Collaborate directly with our team to shape the roadmap, access priority support, and build enterprise-ready solutions with exclusive community insights.
+诚邀各位开发者与生成式AI创新者参与！**DocsGPT灯塔计划**专为正在实际场景中部署或扩展DocsGPT的技术领导者打造。您将直接与我们的团队协作，共同规划产品路线图，获取优先技术支持，并借助独家社区洞察构建企业级解决方案。
 
-[Learn More & Apply →](https://docs.google.com/forms/d/1KAADiJinUJ8EMQyfTXUIGyFbqINNClNR3jBNWq7DgTE)
+[了解详情并申请 →](https://docs.google.com/forms/d/1KAADiJinUJ8EMQyfTXUIGyFbqINNClNR3jBNWq7DgTE)
 
-## QuickStart
+## 快速开始
 
-> [!Note]
-> Make sure you have [Docker](https://docs.docker.com/engine/install/) installed
+> [!注意]
+> 请确保已安装 [Docker](https://docs.docker.com/engine/install/)
 
-A more detailed [Quickstart](https://docs.docsgpt.cloud/quickstart) is available in our documentation
+更详细的[快速入门指南](https://docs.docsgpt.cloud/quickstart)可在文档中查阅
 
-1. **Clone the repository:**
+1. **克隆仓库：**
 
    ```bash
    git clone https://github.com/arc53/DocsGPT.git
    cd DocsGPT
    ```
 
-**For macOS and Linux:**
+**macOS与Linux用户：**
 
-2. **Run the setup script:**
+2. **运行安装脚本：**
 
    ```bash
    ./setup.sh
    ```
 
-**For Windows:**
+**Windows用户：**
 
-2. **Run the PowerShell setup script:**
+2. **运行PowerShell安装脚本：**
 
    ```powershell
    PowerShell -ExecutionPolicy Bypass -File .\setup.ps1
    ```
 
-Either script will guide you through setting up DocsGPT. Four options available: using the public API, running locally, connecting to a local inference engine, or using a cloud API provider. Scripts will automatically configure your `.env` file and handle necessary downloads and installations based on your chosen option.
+任一脚本都将引导您完成DocsGPT的配置。提供四种选项：使用公共API、本地运行、连接本地推理引擎或使用云API提供商。脚本会根据您的选择自动配置`.env`文件，并处理必要的下载与安装。
 
-**Navigate to http://localhost:5173/**
+**访问 http://localhost:5173/**
 
-To stop DocsGPT, open a terminal in the `DocsGPT` directory and run:
+要停止 DocsGPT，请在 `DocsGPT` 目录中打开终端并运行：
 
 ```bash
 docker compose -f deployment/docker-compose.yaml down
 ```
 
-(or use the specific `docker compose down` command shown after running the setup script).
+（或使用运行设置脚本后显示的特定 `docker compose down` 命令）。
 
-> [!Note]
-> For development environment setup instructions, please refer to the [Development Environment Guide](https://docs.docsgpt.cloud/Deploying/Development-Environment).
+> [!注意]
+> 有关开发环境设置说明，请参阅[开发环境指南](https://docs.docsgpt.cloud/Deploying/Development-Environment)。
 
-## Contributing
+## 参与贡献
 
-Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file for information about how to get involved. We welcome issues, questions, and pull requests.
+请参阅 [CONTRIBUTING.md](CONTRIBUTING.md) 文件了解如何参与贡献。我们欢迎问题、疑问和拉取请求。
 
-## Architecture
+## 系统架构
 
-![Architecture chart](https://github.com/user-attachments/assets/fc6a7841-ddfc-45e6-b5a0-d05fe648cbe2)
+![架构图](https://github.com/user-attachments/assets/fc6a7841-ddfc-45e6-b5a0-d05fe648cbe2)
 
-## Project Structure
+## 项目结构
 
-- Application - Flask app (main application).
+- 应用程序 - Flask 应用（主应用程序）。
 
-- Extensions - Extensions, like react widget or discord bot.
+- 扩展 - 扩展功能，如 react 小部件或 discord 机器人。
 
-- Frontend - Frontend uses <a href="https://vitejs.dev/">Vite</a> and <a href="https://react.dev/">React</a>.
+- 前端 - 前端使用 <a href="https://vitejs.dev/">Vite</a> 和 <a href="https://react.dev/">React</a>。
 
-- Scripts - Miscellaneous scripts.
+- 脚本 - 杂项脚本。
 
-## Code Of Conduct
+## 行为准则
 
-We as members, contributors, and leaders, pledge to make participation in our community a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation. Please refer to the [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) file for more information about contributing.
+我们作为成员、贡献者和领导者，承诺让每个人在参与社区时都能获得免受骚扰的体验，不论年龄、体型、可见或不可见的残疾、种族、性别特征、性别认同与表达、经验水平、教育程度、社会经济地位、国籍、外貌、种族、宗教或性取向。更多关于贡献的信息，请参阅 [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) 文件。
 
-## Many Thanks To Our Contributors⚡
+## 衷心感谢我们的贡献者⚡
 
 <a href="https://github.com/arc53/DocsGPT/graphs/contributors" alt="View Contributors">
   <img src="https://contrib.rocks/image?repo=arc53/DocsGPT" alt="Contributors" />
 </a>
 
-## License
+## 许可协议
 
-The source code license is [MIT](https://opensource.org/license/mit/), as described in the [LICENSE](LICENSE) file.
+源代码采用 [MIT](https://opensource.org/license/mit/) 许可证，具体条款详见 [LICENSE](LICENSE) 文件。
 
 <p>This project is supported by:</p>
 <p>
